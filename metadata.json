@@ -1,0 +1,6 @@
+{
+  "name": "Ever After Diamonds",
+  "description": "Luxury bespoke diamond jewelry storefront for Ever After Diamonds UK, featuring engagement rings, fine diamond jewelry, custom creation, and Shopify-ready product management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

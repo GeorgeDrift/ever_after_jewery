@@ -1,0 +1,382 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { Product, CartItem, FilterState, MetalType, DiamondOrigin } from '@/types';
+import { INITIAL_PRODUCTS } from '@/data/initialProducts';
+import { Header } from '@/components/Header';
+import { HeroSection } from '@/components/HeroSection';
+import { ProductCatalog } from '@/components/ProductCatalog';
+import { ProductDetailModal } from '@/components/ProductDetailModal';
+import { AddProductModal } from '@/components/AddProductModal';
+import { ShopifyTransferModal } from '@/components/ShopifyTransferModal';
+import { CartDrawer } from '@/components/CartDrawer';
+import { CheckoutModal } from '@/components/CheckoutModal';
+import { BespokeInquiryModal } from '@/components/BespokeInquiryModal';
+import { DiamondGuideModal } from '@/components/DiamondGuideModal';
+import { Footer } from '@/components/Footer';
+
+export default function StorefrontPage() {
+  const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Initialize from localStorage safely after mount to avoid hydration mismatches
+  useEffect(() => {
+    setIsMounted(true);
+    try {
+      const savedProducts = localStorage.getItem('ead_custom_products');
+      if (savedProducts) {
+        const customProds: Product[] = JSON.parse(savedProducts);
+        const existingIds = new Set(INITIAL_PRODUCTS.map((p) => p.id));
+        const nonDuplicateCustom = customProds.filter((p) => !existingIds.has(p.id));
+        setProducts([...nonDuplicateCustom, ...INITIAL_PRODUCTS]);
+      }
+
+      const savedCart = localStorage.getItem('ead_cart');
+      if (savedCart) {
+        setCart(JSON.parse(savedCart));
+      }
+    } catch (e) {
+      console.error('Error loading saved data from localStorage:', e);
+    }
+  }, []);
+
+  // Save cart changes after mount
+  useEffect(() => {
+    if (!isMounted) return;
+    try {
+      localStorage.setItem('ead_cart', JSON.stringify(cart));
+    } catch (e) {
+      console.error('Error saving cart:', e);
+    }
+  }, [cart, isMounted]);
+
+  // Filters State
+  const [filterState, setFilterState] = useState<FilterState>({
+    category: 'all',
+    metal: 'All',
+    shape: 'All',
+    diamondType: 'All',
+    searchQuery: '',
+    sortBy: 'featured'
+  });
+
+  // Modals State
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedProductMetal, setSelectedProductMetal] = useState<MetalType | undefined>(undefined);
+  const [isAddProductOpen, setIsAddProductOpen] = useState(false);
+  const [isShopifyExportOpen, setIsShopifyExportOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [isDiamondGuideOpen, setIsDiamondGuideOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Navigation View: 'home' (Home Image Editorial Poster) vs 'shop' (Ever After Storefront & Catalog)
+  const [currentView, setCurrentView] = useState<'home' | 'shop'>('home');
+
+  const navigateToShop = (category?: string) => {
+    setCurrentView('shop');
+    if (category) {
+      setFilterState((prev) => ({ ...prev, category }));
+    }
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const navigateToHome = () => {
+    setCurrentView('home');
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3500);
+  };
+
+  // Add Product Handler
+  const handleAddProduct = (newProduct: Product) => {
+    const updated = [newProduct, ...products];
+    setProducts(updated);
+    try {
+      const customOnly = updated.filter((p) => p.id.startsWith('ead-custom-'));
+      localStorage.setItem('ead_custom_products', JSON.stringify(customOnly));
+    } catch (e) {
+      console.error('Error saving custom product:', e);
+    }
+    showToast(`"${newProduct.title}" added to store & ready to sell!`);
+  };
+
+  // Add to Cart from Detail Modal
+  const handleAddToCart = (
+    product: Product,
+    metal: MetalType,
+    carat: number,
+    origin: DiamondOrigin,
+    size: string,
+    engraving: string
+  ) => {
+    const caratMultiplier = 1 + (carat - product.defaultCarat) * 0.45;
+    const originMultiplier = origin === 'Natural' ? 2.6 : 1.0;
+    const metalSurcharge = metal === 'Platinum' ? 250 : metal === '18k Rose Gold' ? 100 : 0;
+    const unitPrice = Math.round((product.price * caratMultiplier * originMultiplier) + metalSurcharge);
+
+    const cartId = `${product.id}-${metal}-${carat}-${origin}-${size}-${engraving}`;
+
+    setCart((prev) => {
+      const existing = prev.find((item) => item.cartId === cartId);
+      if (existing) {
+        return prev.map((item) =>
+          item.cartId === cartId ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      }
+      return [
+        ...prev,
+        {
+          cartId,
+          product,
+          selectedMetal: metal,
+          selectedCarat: carat,
+          selectedDiamondType: origin,
+          ringSize: size,
+          engravingText: engraving,
+          unitPrice,
+          quantity: 1
+        }
+      ];
+    });
+
+    showToast(`Added ${product.title} (${metal}) to bag`);
+  };
+
+  // Quick Add from Product Card
+  const handleQuickAdd = (product: Product, metal: MetalType) => {
+    handleAddToCart(
+      product,
+      metal,
+      product.defaultCarat,
+      product.diamondType,
+      'M',
+      ''
+    );
+    setIsCartOpen(true);
+  };
+
+  // Update quantity in cart
+  const handleUpdateQuantity = (cartId: string, delta: number) => {
+    setCart((prev) =>
+      prev
+        .map((item) => {
+          if (item.cartId === cartId) {
+            const newQty = item.quantity + delta;
+            return newQty > 0 ? { ...item, quantity: newQty } : null;
+          }
+          return item;
+        })
+        .filter(Boolean) as CartItem[]
+    );
+  };
+
+  // Remove from cart
+  const handleRemoveItem = (cartId: string) => {
+    setCart((prev) => prev.filter((i) => i.cartId !== cartId));
+  };
+
+  const handleOrderSuccess = () => {
+    setCart([]);
+  };
+
+  const scrollToCatalog = () => {
+    if (typeof document !== 'undefined') {
+      const el = document.getElementById('brand-header-section') || document.getElementById('storefront-catalog');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col bg-[#FAF9F5] text-[#1C1917]">
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 z-50 bg-white border border-[#E5DFD5] text-[#1C1917] px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 text-xs animate-in slide-in-from-bottom-5">
+          <span className="w-2 h-2 rounded-full bg-[#B28359]" />
+          <span className="font-medium">{toastMessage}</span>
+        </div>
+      )}
+
+      {/* Main Content Area */}
+      <main className="flex-1">
+        {currentView === 'home' ? (
+          /* HOME PAGE: High-Fashion Editorial Home Image Poster */
+          <HeroSection
+            onExploreClick={() => navigateToShop()}
+            onGoShop={() => navigateToShop()}
+            onGoHome={navigateToHome}
+            onBespokeClick={() => setIsConsultationOpen(true)}
+            onOpenDiamondGuide={() => setIsDiamondGuideOpen(true)}
+            onOpenAddProduct={() => setIsAddProductOpen(true)}
+            onOpenCart={() => setIsCartOpen(true)}
+            onOpenShopifyExport={() => setIsShopifyExportOpen(true)}
+            cartCount={cart.reduce((s, i) => s + i.quantity, 0)}
+            onSelectProduct={(p) => {
+              navigateToShop();
+              setSelectedProduct(p);
+              setSelectedProductMetal(p.defaultMetal);
+            }}
+            products={products}
+            searchQuery={filterState.searchQuery}
+            onSearchChange={(q) => setFilterState((prev) => ({ ...prev, searchQuery: q }))}
+          />
+        ) : (
+          /* SHOP SECTION: Ever After Brand Header, Hallmarks & Product Catalog */
+          <div id="shop-storefront-view" className="animate-in fade-in duration-300">
+            {/* 1. Ever After Top Announcement & Navigation Header */}
+            <div id="brand-header-section" className="sticky top-0 z-40">
+              <Header
+                cartCount={cart.reduce((s, i) => s + i.quantity, 0)}
+                onOpenCart={() => setIsCartOpen(true)}
+                onOpenAddProduct={() => setIsAddProductOpen(true)}
+                onOpenShopifyExport={() => setIsShopifyExportOpen(true)}
+                onOpenConsultation={() => setIsConsultationOpen(true)}
+                onOpenDiamondGuide={() => setIsDiamondGuideOpen(true)}
+                selectedCategory={filterState.category}
+                onSelectCategory={(cat) => {
+                  setFilterState((prev) => ({ ...prev, category: cat }));
+                  scrollToCatalog();
+                }}
+                searchQuery={filterState.searchQuery}
+                onSearchChange={(q) => setFilterState((prev) => ({ ...prev, searchQuery: q }))}
+                onGoHome={navigateToHome}
+              />
+            </div>
+
+            {/* 2. Luxury Atelier Hallmark Ribbon */}
+            <div className="border-b border-[#EAE3D5] bg-[#FDFBF7] py-5 px-4">
+              <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
+                <div className="flex flex-col items-center">
+                  <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#8C5B32]">
+                    GIA & IGI Certified
+                  </span>
+                  <span className="text-[11px] text-[#78716C] mt-0.5">
+                    Ethically sourced fine diamonds
+                  </span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#8C5B32]">
+                    London Atelier
+                  </span>
+                  <span className="text-[11px] text-[#78716C] mt-0.5">
+                    Handcrafted in 18k gold & platinum
+                  </span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#8C5B32]">
+                    Complimentary Concierge
+                  </span>
+                  <span className="text-[11px] text-[#78716C] mt-0.5">
+                    Insured delivery & lifetime warranty
+                  </span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#8C5B32]">
+                    Custom Inscription
+                  </span>
+                  <span className="text-[11px] text-[#78716C] mt-0.5">
+                    Complimentary laser engraving
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Products Catalog with Filters, Metal Pickers, and 3D Customizer */}
+            <ProductCatalog
+              products={products}
+              filterState={filterState}
+              onFilterChange={(newFilter) => setFilterState((prev) => ({ ...prev, ...newFilter }))}
+              onResetFilters={() =>
+                setFilterState({
+                  category: 'all',
+                  metal: 'All',
+                  shape: 'All',
+                  diamondType: 'All',
+                  searchQuery: '',
+                  sortBy: 'featured'
+                })
+              }
+              onSelectProduct={(product, metal) => {
+                setSelectedProduct(product);
+                setSelectedProductMetal(metal);
+              }}
+              onQuickAdd={handleQuickAdd}
+              onOpenAddProduct={() => setIsAddProductOpen(true)}
+            />
+          </div>
+        )}
+      </main>
+
+      {/* Footer */}
+      <Footer
+        onSelectCategory={(cat) => {
+          navigateToShop(cat);
+        }}
+        onOpenShopifyExport={() => setIsShopifyExportOpen(true)}
+        onOpenAddProduct={() => setIsAddProductOpen(true)}
+        onOpenConsultation={() => setIsConsultationOpen(true)}
+        onOpenDiamondGuide={() => setIsDiamondGuideOpen(true)}
+        onGoHome={navigateToHome}
+      />
+
+      {/* Modals & Drawers */}
+      <ProductDetailModal
+        product={selectedProduct}
+        initialMetal={selectedProductMetal}
+        onClose={() => {
+          setSelectedProduct(null);
+          setSelectedProductMetal(undefined);
+        }}
+        onAddToCart={handleAddToCart}
+        onOpenConsultation={() => setIsConsultationOpen(true)}
+      />
+
+      <AddProductModal
+        isOpen={isAddProductOpen}
+        onClose={() => setIsAddProductOpen(false)}
+        onAddProduct={handleAddProduct}
+      />
+
+      <ShopifyTransferModal
+        isOpen={isShopifyExportOpen}
+        onClose={() => setIsShopifyExportOpen(false)}
+        products={products}
+      />
+
+      <CartDrawer
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        items={cart}
+        onUpdateQuantity={handleUpdateQuantity}
+        onRemoveItem={handleRemoveItem}
+        onCheckout={() => setIsCheckoutOpen(true)}
+      />
+
+      <CheckoutModal
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        items={cart}
+        onOrderSuccess={handleOrderSuccess}
+      />
+
+      <BespokeInquiryModal
+        isOpen={isConsultationOpen}
+        onClose={() => setIsConsultationOpen(false)}
+      />
+
+      <DiamondGuideModal
+        isOpen={isDiamondGuideOpen}
+        onClose={() => setIsDiamondGuideOpen(false)}
+      />
+    </div>
+  );
+}
