@@ -166,7 +166,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               
               {/* Header Details */}
               <div>
-                <div className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-[#8C5B32] font-semibold mb-1">
+                <div className="flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[0.18em] text-[#8C5B32] font-bold mb-1.5">
                   <span>{product.diamondShape} Cut</span>
                   <span className="text-[#D6CEBF]">•</span>
                   <span>{product.clarity} Clarity</span>
@@ -174,25 +174,25 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   <span>Color {product.colorGrade}</span>
                 </div>
                 
-                <h1 className="font-serif-luxury text-2xl sm:text-3xl font-semibold text-[#1C1917] leading-tight">
+                <h1 className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#1C1917] leading-tight">
                   {product.title}
                 </h1>
                 
-                <p className="text-xs text-[#78716C] mt-1">
+                <p className="text-sm sm:text-base text-[#78716C] mt-1.5 font-medium">
                   {product.tagline}
                 </p>
 
                 {/* Price Display */}
                 <div className="mt-3 flex items-baseline gap-3">
-                  <span className="font-serif-luxury text-2xl sm:text-3xl font-bold text-[#B28359]">
+                  <span className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#B28359]">
                     £{finalPrice.toLocaleString()}
                   </span>
                   {finalComparePrice && (
-                    <span className="text-sm text-[#A8A29E] line-through">
+                    <span className="text-base sm:text-lg text-[#A8A29E] line-through font-medium">
                       £{finalComparePrice.toLocaleString()}
                     </span>
                   )}
-                  <span className="text-[11px] text-[#78716C]">
+                  <span className="text-xs sm:text-sm text-[#78716C] font-semibold">
                     VAT Included • Insured UK Delivery
                   </span>
                 </div>
@@ -200,20 +200,20 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
               {/* 1. Metal Selection */}
               <div className="space-y-2">
-                <div className="flex justify-between text-xs">
-                  <span className="text-[#78716C] uppercase tracking-wider font-medium">1. Choose Precious Metal</span>
-                  <span className="font-semibold text-[#8C5B32]">
+                <div className="flex justify-between text-xs sm:text-sm font-semibold">
+                  <span className="text-[#78716C] uppercase tracking-wider font-bold">1. Choose Precious Metal</span>
+                  <span className="font-bold text-[#8C5B32]">
                     {selectedMetal}
                   </span>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                   {product.metals.map((metal) => {
                     const isSelected = selectedMetal === metal;
                     return (
                       <button
                         key={metal}
                         onClick={() => setSelectedMetal(metal)}
-                        className={`px-3 py-2.5 rounded-xl border text-xs font-semibold text-center transition-all ${
+                        className={`px-3.5 py-3 rounded-xl border text-xs sm:text-sm font-bold text-center transition-all ${
                           isSelected
                             ? 'border-[#B28359] bg-[#FDF7F0] text-[#8C5B32] ring-1 ring-[#B28359]/30 shadow-xs'
                             : 'border-[#E5DFD5] bg-[#FAF9F5] text-[#57534E] hover:text-[#1C1917] hover:border-[#D5CABE]'
@@ -228,56 +228,56 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
               {/* 2. Diamond Origin */}
               <div className="space-y-2">
-                <div className="flex justify-between text-xs">
-                  <span className="text-[#78716C] uppercase tracking-wider font-medium">2. Diamond Origin</span>
-                  <span className={`font-semibold ${selectedOrigin === 'Lab Grown' ? 'text-[#0284C7]' : 'text-[#8C5B32]'}`}>
+                <div className="flex justify-between text-xs sm:text-sm font-semibold">
+                  <span className="text-[#78716C] uppercase tracking-wider font-bold">2. Diamond Origin</span>
+                  <span className={`font-bold ${selectedOrigin === 'Lab Grown' ? 'text-[#0284C7]' : 'text-[#8C5B32]'}`}>
                     {selectedOrigin}
                   </span>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-2.5">
                   <button
                     onClick={() => setSelectedOrigin('Lab Grown')}
-                    className={`p-3 rounded-xl border text-xs text-left transition-all ${
+                    className={`p-3.5 rounded-xl border text-xs sm:text-sm text-left transition-all ${
                       selectedOrigin === 'Lab Grown'
                         ? 'border-[#BAE6FD] bg-[#F0F9FF] text-[#0284C7] ring-1 ring-[#BAE6FD] shadow-xs'
                         : 'border-[#E5DFD5] bg-[#FAF9F5] text-[#57534E] hover:text-[#1C1917] hover:border-[#D5CABE]'
                     }`}
                   >
-                    <div className="flex items-center gap-1.5 font-semibold text-[#1C1917]">
-                      <span className="w-2 h-2 rounded-full bg-[#0284C7]" />
+                    <div className="flex items-center gap-1.5 font-bold text-[#1C1917] text-sm sm:text-base">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#0284C7]" />
                       <span>Lab-Grown Diamond</span>
                     </div>
-                    <div className="text-[10px] text-[#78716C] mt-0.5">100% Real Carbon • Exceptional Value</div>
+                    <div className="text-xs text-[#78716C] mt-1 font-medium">100% Real Carbon • Exceptional Value</div>
                   </button>
                   <button
                     onClick={() => setSelectedOrigin('Natural')}
-                    className={`p-3 rounded-xl border text-xs text-left transition-all ${
+                    className={`p-3.5 rounded-xl border text-xs sm:text-sm text-left transition-all ${
                       selectedOrigin === 'Natural'
                         ? 'border-[#E8D9C8] bg-[#FDF7F0] text-[#8C5B32] ring-1 ring-[#E8D9C8] shadow-xs'
                         : 'border-[#E5DFD5] bg-[#FAF9F5] text-[#57534E] hover:text-[#1C1917] hover:border-[#D5CABE]'
                     }`}
                   >
-                    <div className="flex items-center gap-1.5 font-semibold text-[#1C1917]">
-                      <Gem className="w-3 h-3 text-[#B28359]" />
+                    <div className="flex items-center gap-1.5 font-bold text-[#1C1917] text-sm sm:text-base">
+                      <Gem className="w-4 h-4 text-[#B28359]" />
                       <span>Natural Earth Diamond</span>
                     </div>
-                    <div className="text-[10px] text-[#78716C] mt-0.5">Mined from Earth • Rare & Heirloom</div>
+                    <div className="text-xs text-[#78716C] mt-1 font-medium">Mined from Earth • Rare & Heirloom</div>
                   </button>
                 </div>
               </div>
 
               {/* 3. Carat Weight Selection */}
               <div className="space-y-2">
-                <div className="flex justify-between text-xs">
-                  <span className="text-[#78716C] uppercase tracking-wider font-medium">3. Center Diamond Carat</span>
-                  <span className="text-[#8C5B32] font-semibold">{selectedCarat.toFixed(2)} Carats</span>
+                <div className="flex justify-between text-xs sm:text-sm font-semibold">
+                  <span className="text-[#78716C] uppercase tracking-wider font-bold">3. Center Diamond Carat</span>
+                  <span className="text-[#8C5B32] font-bold">{selectedCarat.toFixed(2)} Carats</span>
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
                   {product.caratOptions.map((carat) => (
                     <button
                       key={carat}
                       onClick={() => setSelectedCarat(carat)}
-                      className={`px-3.5 py-1.5 rounded-full border text-xs font-semibold transition-all ${
+                      className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-bold transition-all ${
                         selectedCarat === carat
                           ? 'border-[#B28359] bg-[#B28359] text-white shadow-sm scale-105'
                           : 'border-[#E5DFD5] bg-[#FAF9F5] text-[#1C1917] hover:border-[#B28359]/40'
@@ -292,20 +292,20 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               {/* 4. Ring Size & Engraving */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <div className="flex items-center justify-between text-xs mb-1">
-                    <span className="text-[#78716C] uppercase tracking-wider font-medium">UK Ring Size</span>
+                  <div className="flex items-center justify-between text-xs sm:text-sm mb-1 font-semibold">
+                    <span className="text-[#78716C] uppercase tracking-wider font-bold">UK Ring Size</span>
                     <button 
                       onClick={() => setShowSizeGuide(!showSizeGuide)}
-                      className="text-[11px] text-[#0284C7] hover:underline flex items-center gap-0.5"
+                      className="text-xs text-[#0284C7] hover:underline flex items-center gap-1 font-bold"
                     >
-                      <HelpCircle className="w-3 h-3" />
+                      <HelpCircle className="w-3.5 h-3.5" />
                       <span>Size Guide</span>
                     </button>
                   </div>
                   <select
                     value={selectedSize}
                     onChange={(e) => setSelectedSize(e.target.value)}
-                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-lg px-3 py-2 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359]"
+                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-lg px-3.5 py-2.5 text-xs sm:text-sm text-[#1C1917] font-semibold focus:outline-none focus:border-[#B28359]"
                   >
                     {ukRingSizes.map((size) => (
                       <option key={size} value={size}>
@@ -317,7 +317,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                  <label className="text-xs sm:text-sm uppercase tracking-wider text-[#78716C] font-bold block mb-1">
                     Free Laser Engraving
                   </label>
                   <input
@@ -326,26 +326,26 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     placeholder="e.g. Forever & Always"
                     value={engravingText}
                     onChange={(e) => setEngravingText(e.target.value)}
-                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-lg px-3 py-2 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359] placeholder-[#A8A29E]"
+                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-lg px-3.5 py-2.5 text-xs sm:text-sm text-[#1C1917] font-semibold focus:outline-none focus:border-[#B28359] placeholder-[#A8A29E]"
                   />
                 </div>
               </div>
 
               {/* Sizing Guide Drawer Info */}
               {showSizeGuide && (
-                <div className="p-3 bg-[#FAF9F5] rounded-lg border border-[#E5DFD5] text-xs text-[#78716C] space-y-1 animate-in fade-in duration-150">
-                  <p className="font-semibold text-[#1C1917]">Need help finding their ring size?</p>
+                <div className="p-3.5 bg-[#FAF9F5] rounded-lg border border-[#E5DFD5] text-xs sm:text-sm text-[#78716C] space-y-1 animate-in fade-in duration-150 font-medium">
+                  <p className="font-bold text-[#1C1917]">Need help finding their ring size?</p>
                   <p>Our average UK female ring size is <strong>M</strong>. We provide <strong>100% complimentary resizing</strong> within 60 days of delivery.</p>
                 </div>
               )}
 
               {/* Action Buttons */}
-              <div className="space-y-2.5 pt-2">
+              <div className="space-y-3 pt-2">
                 <button
                   id="modal-add-to-cart-btn"
                   onClick={handleAdd}
                   disabled={addedAnimation}
-                  className={`w-full py-3.5 rounded-full font-semibold text-xs uppercase tracking-[0.18em] transition-all duration-200 flex items-center justify-center gap-2 shadow-md ${
+                  className={`w-full py-4 rounded-full font-bold text-xs sm:text-sm uppercase tracking-[0.18em] transition-all duration-200 flex items-center justify-center gap-2.5 shadow-md ${
                     addedAnimation 
                       ? 'bg-emerald-600 text-white' 
                       : 'bg-[#B28359] hover:bg-[#9E7249] text-white shadow-[#B28359]/25 active:scale-95'
@@ -353,12 +353,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 >
                   {addedAnimation ? (
                     <>
-                      <Check className="w-4 h-4" />
+                      <Check className="w-5 h-5" />
                       <span>Added to Shopping Bag</span>
                     </>
                   ) : (
                     <>
-                      <ShoppingBag className="w-4 h-4" />
+                      <ShoppingBag className="w-5 h-5" />
                       <span>Add to Bag • £{finalPrice.toLocaleString()}</span>
                     </>
                   )}
@@ -446,10 +446,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
             </div>
 
-            {/* Shopify Ready metadata marker */}
-            <div className="pt-2 text-[10px] text-[#A8A29E] font-mono flex items-center justify-between border-t border-[#EAE4DA]">
-              <span>Shopify Handle: /{product.handle}</span>
-              <span className="text-[#78716C]">Vendor: {product.vendor}</span>
+            {/* Product metadata footer */}
+            <div className="pt-2 text-xs text-[#78716C] font-mono flex items-center justify-between border-t border-[#EAE4DA]">
+              <span>Product Ref: /{product.handle}</span>
+              <span className="text-[#57534E]">Vendor: {product.vendor}</span>
             </div>
 
           </div>

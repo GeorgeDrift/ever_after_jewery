@@ -1,20 +1,21 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   ShoppingBag, 
   Search, 
   Phone, 
   Instagram, 
-  Globe, 
   PlusCircle, 
   DownloadCloud, 
   Sparkles, 
   Menu, 
   X,
   MessageCircle,
+  Mail,
   Home,
-  ArrowLeft
+  ChevronDown,
+  SlidersHorizontal
 } from 'lucide-react';
 import profileBadgeImg from '../assets/images/ead_profile_badge_1788549227010.jpg';
 
@@ -23,8 +24,6 @@ const profileBadgeImgSrc = typeof profileBadgeImg === 'string' ? profileBadgeImg
 interface HeaderProps {
   cartCount: number;
   onOpenCart: () => void;
-  onOpenAddProduct: () => void;
-  onOpenShopifyExport: () => void;
   onOpenConsultation: () => void;
   onOpenDiamondGuide: () => void;
   selectedCategory: string;
@@ -37,8 +36,6 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   cartCount,
   onOpenCart,
-  onOpenAddProduct,
-  onOpenShopifyExport,
   onOpenConsultation,
   onOpenDiamondGuide,
   selectedCategory,
@@ -55,38 +52,37 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'engagement-rings', label: 'Engagement Rings' },
     { id: 'wedding-bands', label: 'Wedding Bands' },
     { id: 'fine-jewelry', label: 'Fine Jewellery' },
-    { id: 'bespoke-creations', label: 'Bespoke Creations' },
+    { id: 'bespoke-creations', label: 'Bespoke' },
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#EAE4DA] shadow-[0_2px_16px_rgba(0,0,0,0.04)]">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#EAE4DA] shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
       {/* Specular Ambient Rim Light Line */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[#B28359]/30 via-[#0284C7]/25 to-transparent" />
+      <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#B28359]/40 via-[#0284C7]/30 to-transparent" />
 
       {/* Top Luxury Announcement Bar */}
-      <div className="bg-[#F7F4EE] border-b border-[#ECE6DB] text-[11px] uppercase tracking-[0.16em] py-2 px-4 text-[#57534E]">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1.5 text-[#8C5B32] font-semibold">
-              <Sparkles className="w-3.5 h-3.5 text-[#B28359]" />
-              <span>Bespoke Fine Jewellers UK</span>
+      <div className="bg-[#F7F4EE] border-b border-[#ECE6DB] text-xs sm:text-sm uppercase tracking-[0.14em] py-2 px-4 text-[#57534E]">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          
+          <div className="flex items-center gap-2 sm:gap-3 truncate">
+            <span className="flex items-center gap-1.5 text-[#8C5B32] font-semibold shrink-0">
+              <Sparkles className="w-4 h-4 text-[#B28359]" />
+              <span>London Fine Jewellers</span>
             </span>
-            <span className="hidden md:inline text-[#D6CEBF]">•</span>
-            {/* Sky Blue Optical Certification Chip */}
-            <span className="hidden md:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F0F9FF] border border-[#BAE6FD] text-[#0284C7] text-[10px] font-semibold tracking-wider">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
-              <span>GIA & IGI Verified</span>
+            <span className="hidden sm:inline text-[#D6CEBF]">•</span>
+            <span className="hidden sm:inline-flex items-center gap-1 text-[#0284C7] font-semibold tracking-wider">
+              <span className="w-2 h-2 rounded-full bg-[#0284C7]" />
+              <span>GIA & IGI Certified</span>
             </span>
-            <span className="hidden lg:inline text-[#D6CEBF]">•</span>
-            <span className="hidden lg:inline text-[#57534E]">18k Gold, White Gold & Platinum</span>
           </div>
 
-          <div className="flex items-center gap-4 text-[11px] tracking-wider">
+          <div className="flex items-center gap-3 sm:gap-5 text-xs sm:text-sm tracking-wider shrink-0 font-medium">
             <a 
               href="tel:02081666365" 
-              className="hover:text-[#B28359] transition-colors flex items-center gap-1 text-[#57534E]"
+              className="hover:text-[#B28359] transition-colors flex items-center gap-1.5 text-[#57534E]"
+              title="Call Office: 020 8166 6365"
             >
-              <Phone className="w-3 h-3 text-[#B28359]" />
+              <Phone className="w-3.5 h-3.5 text-[#B28359]" />
               <span>020 8166 6365</span>
             </a>
             <span className="text-[#D6CEBF]">/</span>
@@ -94,27 +90,29 @@ export const Header: React.FC<HeaderProps> = ({
               href="https://wa.me/447737806748" 
               target="_blank" 
               rel="noreferrer" 
-              className="hover:text-emerald-700 transition-colors flex items-center gap-1 text-[#57534E]"
+              className="hover:text-emerald-700 transition-colors flex items-center gap-1.5 text-[#57534E]"
+              title="WhatsApp: 07737 806748"
             >
-              <MessageCircle className="w-3 h-3 text-emerald-600" />
+              <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
               <span>07737 806748</span>
             </a>
-            <span className="text-[#D6CEBF]">/</span>
+            <span className="hidden lg:inline text-[#D6CEBF]">/</span>
             <a 
-              href="https://everafterdiamonds.co.uk" 
-              target="_blank" 
-              rel="noreferrer" 
-              className="hover:text-[#0284C7] transition-colors flex items-center gap-1 text-[#57534E]"
+              href="mailto:info@everafterdiamonds.co.uk" 
+              className="hidden lg:flex items-center gap-1.5 hover:text-[#B28359] transition-colors text-[#57534E]"
+              title="Email: info@everafterdiamonds.co.uk"
             >
-              <Globe className="w-3 h-3 text-[#0284C7]" />
-              <span className="text-[#57534E] hover:text-[#0284C7]">everafterdiamonds.co.uk</span>
+              <Mail className="w-3.5 h-3.5 text-[#B28359]" />
+              <span>info@everafterdiamonds.co.uk</span>
             </a>
           </div>
+
         </div>
       </div>
 
-      {/* Main Identity & Navigation Bar */}
+      {/* Main Navigation Row */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+        
         {/* Mobile menu trigger */}
         <button 
           id="mobile-menu-btn"
@@ -125,56 +123,42 @@ export const Header: React.FC<HeaderProps> = ({
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
 
-        {/* Brand Profile Picture & Domain Logo */}
-        <div className="flex items-center gap-3">
-          <button 
-            type="button" 
-            onClick={onGoHome || (() => window.scrollTo({ top: 0, behavior: 'smooth' }))} 
-            className="flex items-center gap-3 group text-left cursor-pointer"
-            title="Return to Home Page"
-          >
-            <div className="relative w-11 h-11 rounded-full p-[1.5px] bg-gradient-to-tr from-[#B28359] via-[#0284C7]/40 to-[#B28359] shadow-sm group-hover:scale-105 transition-transform duration-300">
-              <img 
-                src={profileBadgeImgSrc} 
-                alt="Ever After Diamonds Logo Profile" 
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover rounded-full bg-white"
-              />
+        {/* Brand Logo & Name (Always Navigates to Home View) */}
+        <button 
+          type="button" 
+          onClick={onGoHome || (() => window.scrollTo({ top: 0, behavior: 'smooth' }))} 
+          className="flex items-center gap-3 group text-left cursor-pointer shrink-0"
+          title="Return to Home Page"
+        >
+          <div className="relative w-11 h-11 rounded-full p-[1.5px] bg-gradient-to-tr from-[#B28359] via-[#0284C7]/40 to-[#B28359] shadow-xs group-hover:scale-105 transition-transform duration-300">
+            <img 
+              src={profileBadgeImgSrc} 
+              alt="Ever After Diamonds Emblem" 
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover rounded-full bg-white"
+            />
+          </div>
+          <div className="flex flex-col text-left">
+            <span className="font-serif-luxury text-lg sm:text-xl md:text-2xl font-bold tracking-[0.16em] text-[#1C1917] group-hover:text-[#B28359] transition-colors uppercase leading-tight">
+              EVER AFTER
+            </span>
+            <div className="flex items-center gap-1.5 text-xs sm:text-xs tracking-[0.24em] uppercase font-semibold">
+              <span className="text-[#8C5B32]">DIAMONDS</span>
+              <span className="text-[#D3CBC0]">•</span>
+              <span className="text-[#78716C]">LONDON</span>
             </div>
-            <div className="flex flex-col text-left">
-              <span className="font-serif-luxury text-lg sm:text-xl font-semibold tracking-[0.16em] text-[#1C1917] group-hover:text-[#B28359] transition-colors uppercase leading-tight">
-                EVER AFTER
-              </span>
-              <div className="flex items-center gap-1.5 text-[10px] tracking-[0.24em] uppercase font-medium">
-                <span className="text-[#8C5B32]">DIAMONDS</span>
-                <span className="text-[#D3CBC0]">•</span>
-                <span className="text-[#78716C]">LONDON</span>
-              </div>
-            </div>
-          </button>
+          </div>
+        </button>
 
-          {/* Direct Link to Instagram Profile */}
-          <a
-            href="https://www.instagram.com/ever.after.diamonds"
-            target="_blank"
-            rel="noreferrer"
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F7F4EE] border border-[#E5DFD5] text-[11px] text-[#57534E] hover:text-[#1C1917] hover:border-[#B28359]/40 transition-all ml-2"
-            title="Follow @ever.after.diamonds on Instagram"
-          >
-            <Instagram className="w-3.5 h-3.5 text-[#B28359]" />
-            <span>@ever.after.diamonds</span>
-          </a>
-        </div>
-
-        {/* Desktop Category Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5">
+        {/* Desktop Category Navigation Links */}
+        <nav className="hidden lg:flex items-center gap-1.5 xl:gap-2.5">
           {onGoHome && (
             <button
               onClick={onGoHome}
-              className="px-3 py-1.5 rounded-full text-xs tracking-[0.12em] uppercase font-semibold text-[#1C1917] hover:bg-[#F5F2EB] transition-all flex items-center gap-1 mr-1"
-              title="Return to Home Image"
+              className="px-3.5 py-2 rounded-full text-xs xl:text-sm tracking-[0.12em] uppercase font-semibold text-[#1C1917] hover:bg-[#F5F2EB] transition-all flex items-center gap-1.5 border border-[#E5DFD5] bg-[#FAF9F5] shadow-xs"
+              title="Return to Home Page"
             >
-              <Home className="w-3 h-3 text-[#8C5B32]" />
+              <Home className="w-4 h-4 text-[#8C5B32]" />
               <span>Home</span>
             </button>
           )}
@@ -185,9 +169,9 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 key={cat.id}
                 onClick={() => onSelectCategory(cat.id)}
-                className={`px-3.5 py-1.5 rounded-full text-xs tracking-[0.12em] uppercase font-medium transition-all duration-200 ${
+                className={`px-4 py-2 rounded-full text-xs xl:text-sm tracking-[0.12em] uppercase font-semibold transition-all duration-200 ${
                   isActive 
-                    ? 'bg-[#FDF7F0] text-[#8C5B32] border border-[#E8D9C8] shadow-sm font-semibold' 
+                    ? 'bg-[#FDF7F0] text-[#8C5B32] border border-[#E8D9C8] font-bold shadow-xs' 
                     : 'text-[#57534E] hover:text-[#1C1917] hover:bg-[#F5F2EB]'
                 }`}
               >
@@ -196,26 +180,27 @@ export const Header: React.FC<HeaderProps> = ({
             );
           })}
           
-          {/* Diamond Guide Link */}
+          {/* Diamond 4Cs Education Guide */}
           <button
             onClick={onOpenDiamondGuide}
-            className="px-3 py-1.5 rounded-full text-xs tracking-[0.12em] uppercase font-medium text-[#57534E] hover:text-[#0284C7] hover:bg-[#F0F9FF] transition-all flex items-center gap-1.5"
+            className="px-3.5 py-2 rounded-full text-xs xl:text-sm tracking-[0.12em] uppercase font-semibold text-[#57534E] hover:text-[#0284C7] hover:bg-[#F0F9FF] transition-all flex items-center gap-1.5"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#0284C7]" />
+            <Sparkles className="w-4 h-4 text-[#0284C7]" />
             <span>4Cs Guide</span>
           </button>
         </nav>
 
-        {/* Action Controls */}
-        <div className="flex items-center gap-2 sm:gap-2.5">
-          {/* Search Toggle */}
+        {/* Right Utility Toolbar */}
+        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          
+          {/* Search Drawer Input Toggle */}
           <div className="relative">
             {searchOpen ? (
-              <div className="flex items-center bg-[#F7F4EE] border border-[#E5DFD5] rounded-full px-3 py-1.5 w-44 sm:w-60 shadow-inner">
-                <Search className="w-3.5 h-3.5 text-[#0284C7] mr-2" />
+              <div className="flex items-center bg-[#F7F4EE] border border-[#E5DFD5] rounded-full px-3 py-1 w-40 sm:w-56 shadow-inner animate-in fade-in duration-150">
+                <Search className="w-3.5 h-3.5 text-[#0284C7] mr-1.5 shrink-0" />
                 <input
                   type="text"
-                  placeholder="Search rings, carats..."
+                  placeholder="Search rings..."
                   value={searchQuery}
                   onChange={(e) => onSearchChange(e.target.value)}
                   autoFocus
@@ -223,7 +208,7 @@ export const Header: React.FC<HeaderProps> = ({
                 />
                 <button 
                   onClick={() => { setSearchOpen(false); onSearchChange(''); }}
-                  className="text-[#78716C] hover:text-[#1C1917] ml-1"
+                  className="text-[#78716C] hover:text-[#1C1917] ml-1 p-0.5"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -233,45 +218,23 @@ export const Header: React.FC<HeaderProps> = ({
                 id="search-toggle-btn"
                 onClick={() => setSearchOpen(true)}
                 className="p-2 text-[#57534E] hover:text-[#1C1917] transition-colors rounded-full hover:bg-[#F5F2EB]"
-                title="Search Jewelry"
+                title="Search Storefront"
               >
                 <Search className="w-4 h-4" />
               </button>
             )}
           </div>
 
-          {/* Shopify Transfer Ready Button */}
-          <button
-            id="shopify-transfer-btn"
-            onClick={onOpenShopifyExport}
-            className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white hover:bg-[#F9F7F4] border border-[#E0D9CE] hover:border-[#0284C7] text-[#292524] hover:text-[#1C1917] text-xs font-medium tracking-wide transition-all shadow-sm"
-            title="Transfer products to Shopify (CSV / JSON Ready)"
-          >
-            <DownloadCloud className="w-3.5 h-3.5 text-[#0284C7]" />
-            <span className="hidden md:inline">Shopify Transfer</span>
-          </button>
-
-          {/* Storefront Add Product */}
-          <button
-            id="add-product-btn"
-            onClick={onOpenAddProduct}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white hover:bg-[#F9F7F4] border border-[#E0D9CE] hover:border-[#B28359] text-[#292524] hover:text-[#1C1917] text-xs font-medium tracking-wide transition-all shadow-sm"
-            title="Add new diamond jewelry product to storefront"
-          >
-            <PlusCircle className="w-3.5 h-3.5 text-[#B28359]" />
-            <span className="hidden sm:inline">Add Product</span>
-          </button>
-
-          {/* Bespoke Consultation Trigger */}
+          {/* Book Consultation / Viewing Button */}
           <button
             id="book-consultation-btn"
             onClick={onOpenConsultation}
-            className="hidden xl:flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#B28359] hover:bg-[#9E7249] text-white text-xs font-semibold tracking-wider uppercase transition-all shadow-sm shadow-[#B28359]/20 active:scale-95"
+            className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#B28359] hover:bg-[#9E7249] text-white text-xs font-semibold tracking-wider uppercase transition-all shadow-xs active:scale-95"
           >
-            <span>Book Consultation</span>
+            <span>Book Viewing</span>
           </button>
 
-          {/* Shopping Bag Drawer Trigger */}
+          {/* Shopping Bag Drawer Button */}
           <button
             id="cart-drawer-btn"
             onClick={onOpenCart}
@@ -280,11 +243,12 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <ShoppingBag className="w-5 h-5" />
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#0284C7] text-white text-[10px] font-bold flex items-center justify-center shadow-sm">
+              <span className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#0284C7] text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
                 {cartCount}
               </span>
             )}
           </button>
+
         </div>
       </div>
 
@@ -297,13 +261,12 @@ export const Header: React.FC<HeaderProps> = ({
                 onGoHome();
                 setMobileMenuOpen(false);
               }}
-              className="w-full text-left px-3 py-2 text-xs uppercase tracking-wider rounded-lg bg-[#FAF7F2] text-[#8C5B32] font-semibold border border-[#E8D9C8] flex items-center justify-between"
+              className="w-full text-left px-3 py-2.5 text-xs uppercase tracking-wider rounded-lg bg-[#FAF7F2] text-[#8C5B32] font-semibold border border-[#E8D9C8] flex items-center justify-between shadow-xs"
             >
-              <span className="flex items-center gap-1.5">
-                <Home className="w-3.5 h-3.5" />
+              <span className="flex items-center gap-2">
+                <Home className="w-4 h-4 text-[#B28359]" />
                 <span>Return to Home Page</span>
               </span>
-              <ArrowLeft className="w-3.5 h-3.5 rotate-180" />
             </button>
           )}
 
@@ -326,46 +289,27 @@ export const Header: React.FC<HeaderProps> = ({
             ))}
           </div>
 
-          <div className="pt-3 border-t border-[#ECE6DB] flex flex-col gap-2">
+          <div className="pt-3 border-t border-[#ECE6DB] space-y-2">
             <button
               onClick={() => {
                 onOpenDiamondGuide();
                 setMobileMenuOpen(false);
               }}
-              className="w-full text-left px-3 py-2 text-xs uppercase tracking-wider text-[#57534E] hover:text-[#0284C7]"
+              className="w-full text-left px-3 py-2 text-xs uppercase tracking-wider text-[#57534E] hover:text-[#0284C7] flex items-center gap-1.5"
             >
-              The 4Cs Diamond Education
+              <Sparkles className="w-3.5 h-3.5 text-[#0284C7]" />
+              <span>The 4Cs Diamond Education</span>
             </button>
+
             <button
               onClick={() => {
                 onOpenConsultation();
                 setMobileMenuOpen(false);
               }}
-              className="w-full text-center py-2.5 rounded-full bg-[#B28359] text-white text-xs font-semibold uppercase tracking-wider shadow-sm"
+              className="w-full text-center py-2.5 rounded-full bg-[#B28359] text-white text-xs font-semibold uppercase tracking-wider shadow-xs mt-2"
             >
               Book Bespoke Consultation
             </button>
-            <div className="flex items-center justify-between pt-2">
-              <button
-                onClick={() => {
-                  onOpenShopifyExport();
-                  setMobileMenuOpen(false);
-                }}
-                className="text-xs text-[#0284C7] flex items-center gap-1.5"
-              >
-                <DownloadCloud className="w-3.5 h-3.5" />
-                <span>Shopify Transfer (CSV / JSON)</span>
-              </button>
-              <a
-                href="https://www.instagram.com/ever.after.diamonds"
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs text-[#57534E] flex items-center gap-1 hover:text-[#B28359]"
-              >
-                <Instagram className="w-3.5 h-3.5" />
-                <span>@ever.after.diamonds</span>
-              </a>
-            </div>
           </div>
         </div>
       )}

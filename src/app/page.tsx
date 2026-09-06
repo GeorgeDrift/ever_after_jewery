@@ -237,8 +237,6 @@ export default function StorefrontPage() {
               <Header
                 cartCount={cart.reduce((s, i) => s + i.quantity, 0)}
                 onOpenCart={() => setIsCartOpen(true)}
-                onOpenAddProduct={() => setIsAddProductOpen(true)}
-                onOpenShopifyExport={() => setIsShopifyExportOpen(true)}
                 onOpenConsultation={() => setIsConsultationOpen(true)}
                 onOpenDiamondGuide={() => setIsDiamondGuideOpen(true)}
                 selectedCategory={filterState.category}
@@ -252,40 +250,24 @@ export default function StorefrontPage() {
               />
             </div>
 
-            {/* 2. Luxury Atelier Hallmark Ribbon */}
-            <div className="border-b border-[#EAE3D5] bg-[#FDFBF7] py-5 px-4">
-              <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
-                <div className="flex flex-col items-center">
-                  <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#8C5B32]">
-                    GIA & IGI Certified
-                  </span>
-                  <span className="text-[11px] text-[#78716C] mt-0.5">
-                    Ethically sourced fine diamonds
-                  </span>
+            {/* 2. Sleek Luxury Atelier Hallmark Bar */}
+            <div className="border-b border-[#EAE3D5] bg-[#FDFBF7] py-2.5 px-4 text-xs">
+              <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center sm:justify-between gap-y-1 gap-x-6 text-[#78716C]">
+                <div className="flex items-center gap-1.5 font-medium text-[#1C1917]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#B28359]" />
+                  <span>GIA & IGI Certified Diamonds</span>
                 </div>
-                <div className="flex flex-col items-center">
-                  <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#8C5B32]">
-                    London Atelier
-                  </span>
-                  <span className="text-[11px] text-[#78716C] mt-0.5">
-                    Handcrafted in 18k gold & platinum
-                  </span>
+                <div className="flex items-center gap-1.5 font-medium text-[#1C1917]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
+                  <span>Handcrafted in London</span>
                 </div>
-                <div className="flex flex-col items-center">
-                  <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#8C5B32]">
-                    Complimentary Concierge
-                  </span>
-                  <span className="text-[11px] text-[#78716C] mt-0.5">
-                    Insured delivery & lifetime warranty
-                  </span>
+                <div className="flex items-center gap-1.5 font-medium text-[#1C1917]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#B28359]" />
+                  <span>Insured Royal Mail Delivery</span>
                 </div>
-                <div className="flex flex-col items-center">
-                  <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#8C5B32]">
-                    Custom Inscription
-                  </span>
-                  <span className="text-[11px] text-[#78716C] mt-0.5">
-                    Complimentary laser engraving
-                  </span>
+                <div className="hidden md:flex items-center gap-1.5 font-medium text-[#1C1917]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                  <span>Free Laser Engraving</span>
                 </div>
               </div>
             </div>
@@ -310,7 +292,6 @@ export default function StorefrontPage() {
                 setSelectedProductMetal(metal);
               }}
               onQuickAdd={handleQuickAdd}
-              onOpenAddProduct={() => setIsAddProductOpen(true)}
             />
           </div>
         )}
@@ -321,8 +302,6 @@ export default function StorefrontPage() {
         onSelectCategory={(cat) => {
           navigateToShop(cat);
         }}
-        onOpenShopifyExport={() => setIsShopifyExportOpen(true)}
-        onOpenAddProduct={() => setIsAddProductOpen(true)}
         onOpenConsultation={() => setIsConsultationOpen(true)}
         onOpenDiamondGuide={() => setIsDiamondGuideOpen(true)}
         onGoHome={navigateToHome}

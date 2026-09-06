@@ -3,7 +3,7 @@
 import React from 'react';
 import { Product, MetalType, FilterState } from '../types';
 import { ProductCard } from './ProductCard';
-import { SlidersHorizontal, Plus, RefreshCw, Gem, Sparkles, Check } from 'lucide-react';
+import { SlidersHorizontal, RefreshCw, Gem, Sparkles, Check } from 'lucide-react';
 
 interface ProductCatalogProps {
   products: Product[];
@@ -12,7 +12,6 @@ interface ProductCatalogProps {
   onResetFilters: () => void;
   onSelectProduct: (product: Product, initialMetal?: MetalType) => void;
   onQuickAdd: (product: Product, metal: MetalType) => void;
-  onOpenAddProduct: () => void;
 }
 
 export const ProductCatalog: React.FC<ProductCatalogProps> = ({
@@ -21,8 +20,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
   onFilterChange,
   onResetFilters,
   onSelectProduct,
-  onQuickAdd,
-  onOpenAddProduct
+  onQuickAdd
 }) => {
   const metals = ['All', '18k Yellow Gold', 'Platinum', '18k White Gold', '18k Rose Gold'];
   const shapes = ['All', 'Oval', 'Round Brilliant', 'Emerald', 'Cushion', 'Radiant', 'Pear'];
@@ -84,50 +82,39 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 border-b border-[#EAE4DA]">
         <div>
-          <div className="inline-flex items-center gap-2 text-xs tracking-[0.22em] text-[#8C5B32] uppercase font-semibold mb-1">
-            <Sparkles className="w-3.5 h-3.5 text-[#B28359]" />
+          <div className="inline-flex items-center gap-2 text-xs sm:text-sm tracking-[0.22em] text-[#8C5B32] uppercase font-bold mb-1.5">
+            <Sparkles className="w-4 h-4 text-[#B28359]" />
             <span>Curated Fine Diamond Storefront</span>
           </div>
-          <h2 className="font-serif-luxury text-2xl sm:text-4xl font-normal text-[#1C1917]">
+          <h2 className="font-serif-luxury text-3xl sm:text-5xl font-semibold text-[#1C1917]">
             Handcrafted Jewelry Creations
           </h2>
-          <p className="text-xs sm:text-sm text-[#78716C] mt-1">
-            Browse our ready-to-wear creations or add your own bespoke piece to sell immediately.
+          <p className="text-sm sm:text-base text-[#78716C] mt-1.5 font-medium">
+            Browse our ready-to-wear creations.
           </p>
-        </div>
-
-        {/* Action button to add product */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={onOpenAddProduct}
-            className="px-4 py-2.5 rounded-full bg-white hover:bg-[#F9F7F4] border border-[#D8D0C5] hover:border-[#B28359] text-[#1C1917] text-xs font-semibold tracking-wider uppercase transition-all shadow-sm flex items-center gap-2 active:scale-95"
-          >
-            <Plus className="w-4 h-4 text-[#B28359]" />
-            <span>Add New Product to Store</span>
-          </button>
         </div>
       </div>
 
       {/* Filter & Controls Bar */}
-      <div className="mt-6 p-4 sm:p-5 rounded-2xl bg-white border border-[#EAE4DA] shadow-[0_2px_16px_rgba(0,0,0,0.03)] space-y-4">
+      <div className="mt-6 p-5 sm:p-6 rounded-2xl bg-white border border-[#EAE4DA] shadow-[0_2px_16px_rgba(0,0,0,0.03)] space-y-4">
         
         {/* Header row */}
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-[#1C1917] uppercase">
-            <SlidersHorizontal className="w-4 h-4 text-[#B28359]" />
+          <div className="flex items-center gap-2.5 text-xs sm:text-sm font-bold tracking-wider text-[#1C1917] uppercase">
+            <SlidersHorizontal className="w-4.5 h-4.5 text-[#B28359]" />
             <span>Refine Jewelry Selection</span>
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-[#78716C]">
-              Showing <strong className="text-[#1C1917] font-semibold">{sortedProducts.length}</strong> creations
+          <div className="flex items-center gap-3 text-xs sm:text-sm">
+            <span className="text-[#78716C]">
+              Showing <strong className="text-[#1C1917] font-bold">{sortedProducts.length}</strong> creations
             </span>
             {hasActiveFilters && (
               <button
                 onClick={onResetFilters}
-                className="text-xs text-[#B28359] hover:underline flex items-center gap-1 font-medium"
+                className="text-[#B28359] hover:underline flex items-center gap-1 font-bold"
               >
-                <RefreshCw className="w-3 h-3" />
+                <RefreshCw className="w-3.5 h-3.5" />
                 <span>Reset Filters</span>
               </button>
             )}
@@ -143,9 +130,9 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
           {/* All Metals */}
           <button
             onClick={() => onFilterChange({ metal: 'All' })}
-            className={`m3-chip shrink-0 ${
+            className={`m3-chip shrink-0 cursor-pointer ${
               filterState.metal === 'All'
-                ? 'bg-[#F4EFE6] text-[#1C1917] border border-[#D5CABE] font-semibold'
+                ? 'bg-[#1C1917] text-white border border-[#1C1917] font-semibold shadow-xs'
                 : 'm3-chip-outlined'
             }`}
           >
@@ -156,71 +143,71 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
           {/* 18k Yellow Gold */}
           <button
             onClick={() => onFilterChange({ metal: filterState.metal === '18k Yellow Gold' ? 'All' : '18k Yellow Gold' })}
-            className={`m3-chip shrink-0 ${
+            className={`m3-chip shrink-0 cursor-pointer ${
               filterState.metal === '18k Yellow Gold'
-                ? 'm3-chip-gold shadow-sm font-semibold'
+                ? 'bg-[#B28359] text-white border border-[#B28359] shadow-xs font-semibold'
                 : 'm3-chip-outlined hover:border-[#B28359]/50'
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-[#B28359]" />
+            <span className={`w-2 h-2 rounded-full ${filterState.metal === '18k Yellow Gold' ? 'bg-white' : 'bg-[#B28359]'}`} />
             <span>18k Yellow Gold</span>
-            {filterState.metal === '18k Yellow Gold' && <Check className="w-3 h-3 text-[#B28359]" />}
+            {filterState.metal === '18k Yellow Gold' && <Check className="w-3 h-3 text-white" />}
           </button>
 
           {/* 18k White Gold */}
           <button
             onClick={() => onFilterChange({ metal: filterState.metal === '18k White Gold' ? 'All' : '18k White Gold' })}
-            className={`m3-chip shrink-0 ${
+            className={`m3-chip shrink-0 cursor-pointer ${
               filterState.metal === '18k White Gold'
-                ? 'm3-chip-white-gold shadow-sm font-semibold'
+                ? 'bg-[#334155] text-white border border-[#334155] shadow-xs font-semibold'
                 : 'm3-chip-outlined hover:border-[#CBD5E1]'
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-[#64748B]" />
+            <span className={`w-2 h-2 rounded-full ${filterState.metal === '18k White Gold' ? 'bg-white' : 'bg-[#64748B]'}`} />
             <span>18k White Gold</span>
-            {filterState.metal === '18k White Gold' && <Check className="w-3 h-3 text-[#475569]" />}
+            {filterState.metal === '18k White Gold' && <Check className="w-3 h-3 text-white" />}
           </button>
 
           {/* Platinum */}
           <button
             onClick={() => onFilterChange({ metal: filterState.metal === 'Platinum' ? 'All' : 'Platinum' })}
-            className={`m3-chip shrink-0 ${
+            className={`m3-chip shrink-0 cursor-pointer ${
               filterState.metal === 'Platinum'
-                ? 'm3-chip-white-gold shadow-sm font-semibold'
+                ? 'bg-[#475569] text-white border border-[#475569] shadow-xs font-semibold'
                 : 'm3-chip-outlined'
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-[#94A3B8]" />
+            <span className={`w-2 h-2 rounded-full ${filterState.metal === 'Platinum' ? 'bg-white' : 'bg-[#94A3B8]'}`} />
             <span>Platinum</span>
-            {filterState.metal === 'Platinum' && <Check className="w-3 h-3 text-[#475569]" />}
+            {filterState.metal === 'Platinum' && <Check className="w-3 h-3 text-white" />}
           </button>
 
           {/* Lab Grown */}
           <button
             onClick={() => onFilterChange({ diamondType: filterState.diamondType === 'Lab Grown' ? 'All' : 'Lab Grown' })}
-            className={`m3-chip shrink-0 ${
+            className={`m3-chip shrink-0 cursor-pointer ${
               filterState.diamondType === 'Lab Grown'
-                ? 'm3-chip-sky-blue shadow-sm font-semibold'
+                ? 'bg-[#0284C7] text-white border border-[#0284C7] shadow-xs font-semibold'
                 : 'm3-chip-outlined hover:border-[#BAE6FD]'
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-[#0284C7]" />
+            <span className={`w-2 h-2 rounded-full ${filterState.diamondType === 'Lab Grown' ? 'bg-white' : 'bg-[#0284C7]'}`} />
             <span>Lab-Grown Diamonds</span>
-            {filterState.diamondType === 'Lab Grown' && <Check className="w-3 h-3 text-[#0284C7]" />}
+            {filterState.diamondType === 'Lab Grown' && <Check className="w-3 h-3 text-white" />}
           </button>
 
           {/* Natural Diamond */}
           <button
             onClick={() => onFilterChange({ diamondType: filterState.diamondType === 'Natural' ? 'All' : 'Natural' })}
-            className={`m3-chip shrink-0 ${
+            className={`m3-chip shrink-0 cursor-pointer ${
               filterState.diamondType === 'Natural'
-                ? 'm3-chip-gold shadow-sm font-semibold'
+                ? 'bg-[#8C5B32] text-white border border-[#8C5B32] shadow-xs font-semibold'
                 : 'm3-chip-outlined'
             }`}
           >
-            <Gem className="w-3 h-3 text-[#B28359]" />
+            <Gem className={`w-3 h-3 ${filterState.diamondType === 'Natural' ? 'text-white' : 'text-[#B28359]'}`} />
             <span>Natural Diamonds</span>
-            {filterState.diamondType === 'Natural' && <Check className="w-3 h-3 text-[#B28359]" />}
+            {filterState.diamondType === 'Natural' && <Check className="w-3 h-3 text-white" />}
           </button>
         </div>
 
@@ -312,7 +299,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
             No creations match your filters
           </h3>
           <p className="text-xs text-[#78716C] max-w-md mx-auto mb-6">
-            Try adjusting your metal, diamond shape, or search term to discover our complete collection, or create a custom piece.
+            Try adjusting your metal, diamond shape, or search term to discover our complete collection.
           </p>
           <div className="flex items-center justify-center gap-3">
             <button
@@ -320,12 +307,6 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
               className="px-5 py-2.5 rounded-full bg-[#B28359] hover:bg-[#9E7249] text-white text-xs font-semibold uppercase tracking-wider transition-all shadow-sm"
             >
               Clear All Filters
-            </button>
-            <button
-              onClick={onOpenAddProduct}
-              className="px-5 py-2.5 rounded-full bg-white hover:bg-[#F9F7F4] border border-[#D5CABE] text-[#1C1917] text-xs font-semibold uppercase tracking-wider transition-all"
-            >
-              Add New Product
             </button>
           </div>
         </div>
