@@ -5,6 +5,11 @@ export const metadata: Metadata = {
   title: 'Ever After Diamonds | Bespoke Fine Diamond Jewellers UK',
   description:
     'Luxury bespoke diamond jewelry storefront for Ever After Diamonds UK, featuring handcrafted engagement rings, certified fine jewelry, and exclusive diamond collections.',
+  icons: {
+    icon: '/ead_logo_icon.jpg',
+    shortcut: '/ead_logo_icon.jpg',
+    apple: '/ead_logo_icon.jpg',
+  },
   openGraph: {
     title: 'Ever After Diamonds | Bespoke Fine Diamond Jewellers UK',
     description:
@@ -32,6 +37,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/ead_logo_icon.jpg" />
+        <link rel="apple-touch-icon" href="/ead_logo_icon.jpg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
