@@ -19,8 +19,8 @@ const quiltedGoldRingImgSrc = toSrc(quiltedGoldRingImg);
 export const INITIAL_PRODUCTS: Product[] = [
   {
     id: 'ead-000',
-    handle: 'coco-crush-ring-18k-yellow-gold',
-    title: 'Coco Crush Ring',
+    handle: 'ever-after-quilted-ring-18k-yellow-gold',
+    title: 'The Ever After Quilted Band',
     tagline: 'Quilted motif fine band ring in solid 18k yellow gold with diamond accents',
     description: 'An iconic silhouette defined by sculpted curved quilted cuts and mirror-polished 18k yellow gold. Embedded with precision-cut brilliant diamonds that catch the ambient light with every subtle gesture. Wear solo or stacked in timeless elegance.',
     category: 'fine-jewelry',
@@ -41,11 +41,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     ],
     sku: 'EAD-CC-000-YG',
     inventoryQuantity: 6,
-    tags: ['Coco Crush', 'Quilted Gold', '18k Yellow Gold', 'Fine Jewelry', 'Iconic'],
+    tags: ['Ever After Quilted', 'Quilted Gold', '18k Yellow Gold', 'Fine Jewelry', 'Iconic'],
     isBestseller: true,
     isNew: true,
     certification: 'UK Assay Hallmarked',
-    vendor: 'Blu Nile / Ever After',
+    vendor: 'Ever After Diamonds',
     productType: 'Ring'
   },
   {

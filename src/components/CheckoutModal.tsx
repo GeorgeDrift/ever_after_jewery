@@ -20,8 +20,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   if (!isOpen) return null;
 
   const [step, setStep] = useState<'details' | 'success'>('details');
-  const [fullName, setFullName] = useState('George Chivalo');
-  const [email, setEmail] = useState('georgechivalo01@gmail.com');
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('info@everafterdiamonds.co.uk');
   const [phone, setPhone] = useState('07737 806748');
   const [address, setAddress] = useState('14 Hatton Garden, Suite 3B');
   const [city, setCity] = useState('London');

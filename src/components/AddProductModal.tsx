@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Product, ProductCategory, MetalType, DiamondShape, DiamondOrigin } from '../types';
-import { X, Plus, Sparkles, Check, Image as ImageIcon, Eye } from 'lucide-react';
+import { X, Plus, Sparkles, Check, Image as ImageIcon, Eye, UploadCloud, Link as LinkIcon } from 'lucide-react';
 
 import heroRingImg from '../assets/images/hero_diamond_ring_1788549247112.jpg';
 import emeraldRingImg from '../assets/images/emerald_cut_ring_1788549264736.jpg';
@@ -52,6 +52,31 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
   const [tagsStr, setTagsStr] = useState('Bespoke, New Arrival, Fine Jewelry');
   const [certification, setCertification] = useState('GIA & IGI Certified');
   const [errorMsg, setErrorMsg] = useState('');
+  const [isDragging, setIsDragging] = useState(false);
+  const [showUrlInput, setShowUrlInput] = useState(false);
+
+  const handleFileUpload = (file: File) => {
+    if (!file.type.startsWith('image/')) {
+      setErrorMsg('Please select a valid image file (PNG, JPG, WEBP)');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (typeof reader.result === 'string') {
+        setImageUrl(reader.result);
+        setErrorMsg('');
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleFileUpload(e.dataTransfer.files[0]);
+    }
+  };
 
   // Auto handle creation
   const handleSlug = title
@@ -131,20 +156,20 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-[#1C1917]/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-4xl bg-white border border-[#E5DFD5] rounded-3xl shadow-2xl overflow-hidden my-auto"
+        className="relative w-full max-w-4xl bg-white dark:bg-[#181614] border border-[#E5DFD5] dark:border-[#3A332B] rounded-3xl shadow-2xl overflow-hidden my-auto transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="p-6 border-b border-[#E5DFD5] flex items-center justify-between bg-[#FAF9F5]">
+        <div className="p-6 border-b border-[#E5DFD5] dark:border-[#332E2A] flex items-center justify-between bg-[#FAF9F5] dark:bg-[#211E1A]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#FDF7F0] border border-[#B28359]/30 flex items-center justify-center text-[#8C5B32] shadow-xs">
+            <div className="w-10 h-10 rounded-2xl bg-[#FDF7F0] dark:bg-[#261E17] border border-[#B28359]/30 dark:border-[#574628] flex items-center justify-center text-[#8C5B32] dark:text-[#D4AF37] shadow-xs">
               <Plus className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="font-serif-luxury text-xl font-semibold text-[#1C1917]">
+              <h2 className="font-serif-luxury text-xl font-semibold text-[#1C1917] dark:text-[#F5F2EB]">
                 Add New Product to Storefront
               </h2>
-              <p className="text-xs text-[#78716C]">
+              <p className="text-xs text-[#78716C] dark:text-[#A3998E]">
                 Ready to sell immediately • Automatically Shopify & CSV compatible
               </p>
             </div>
@@ -152,7 +177,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
           <button
             id="close-add-product-btn"
             onClick={onClose}
-            className="p-2 rounded-full text-[#78716C] hover:text-[#1C1917] hover:bg-[#F2ECE1] transition-colors"
+            className="p-2 rounded-full text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB] hover:bg-[#F2ECE1] dark:hover:bg-[#2A241E] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -162,7 +187,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
         <form onSubmit={handleSubmit} className="p-6 sm:p-8 max-h-[80vh] overflow-y-auto space-y-6">
           
           {errorMsg && (
-            <div className="p-3.5 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl flex items-center gap-2">
+            <div className="p-3.5 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-xs rounded-xl flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-red-500" />
               <span>{errorMsg}</span>
             </div>
@@ -173,7 +198,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
             {/* Left Fields */}
             <div className="space-y-4">
               <div>
-                <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                   Product Title *
                 </label>
                 <input
@@ -182,15 +207,15 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                   placeholder="e.g. The Westminster Radiant Solitaire Ring"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3.5 py-2.5 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359] placeholder-[#A8A29E]"
+                  className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3.5 py-2.5 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359] placeholder-[#A8A29E] dark:placeholder-[#6E675F]"
                 />
-                <span className="text-[10px] text-[#0284C7] mt-1 block">
+                <span className="text-[10px] text-[#0284C7] dark:text-[#38BDF8] mt-1 block">
                   Shopify Handle: /{handleSlug}
                 </span>
               </div>
 
               <div>
-                <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                   Tagline / Subtitle
                 </label>
                 <input
@@ -198,19 +223,19 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                   placeholder="e.g. 2.00ct radiant diamond solitaire in 18k gold"
                   value={tagline}
                   onChange={(e) => setTagline(e.target.value)}
-                  className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3.5 py-2.5 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359] placeholder-[#A8A29E]"
+                  className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3.5 py-2.5 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359] placeholder-[#A8A29E] dark:placeholder-[#6E675F]"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                  <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                     Category *
                   </label>
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value as ProductCategory)}
-                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3.5 py-2.5 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359]"
+                    className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3.5 py-2.5 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359]"
                   >
                     <option value="engagement-rings">Engagement Rings</option>
                     <option value="wedding-bands">Wedding Bands</option>
@@ -220,13 +245,13 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                  <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                     Diamond Shape
                   </label>
                   <select
                     value={diamondShape}
                     onChange={(e) => setDiamondShape(e.target.value as DiamondShape)}
-                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3.5 py-2.5 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359]"
+                    className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3.5 py-2.5 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359]"
                   >
                     <option value="Oval">Oval</option>
                     <option value="Round Brilliant">Round Brilliant</option>
@@ -242,7 +267,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                  <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                     Price (£ GBP) *
                   </label>
                   <input
@@ -251,12 +276,12 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                     required
                     value={price}
                     onChange={(e) => setPrice(Number(e.target.value))}
-                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3.5 py-2.5 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359]"
+                    className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3.5 py-2.5 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                  <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                     Compare At Price (£)
                   </label>
                   <input
@@ -264,14 +289,14 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                     min="100"
                     value={compareAtPrice}
                     onChange={(e) => setCompareAtPrice(Number(e.target.value))}
-                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3.5 py-2.5 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359]"
+                    className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3.5 py-2.5 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359]"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-2">
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                  <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                     Default Carat
                   </label>
                   <input
@@ -280,35 +305,35 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                     min="0.2"
                     value={defaultCarat}
                     onChange={(e) => setDefaultCarat(Number(e.target.value))}
-                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3 py-2 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359]"
+                    className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3 py-2 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359]"
                   />
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                  <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                     Clarity
                   </label>
                   <input
                     type="text"
                     value={clarity}
                     onChange={(e) => setClarity(e.target.value)}
-                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3 py-2 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359]"
+                    className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3 py-2 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359]"
                   />
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                  <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                     Color Grade
                   </label>
                   <input
                     type="text"
                     value={colorGrade}
                     onChange={(e) => setColorGrade(e.target.value)}
-                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3 py-2 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359]"
+                    className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3 py-2 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                   Carat Sizes Available (Comma-separated)
                 </label>
                 <input
@@ -316,7 +341,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                   placeholder="e.g. 1.0, 1.5, 2.0, 2.5, 3.0"
                   value={caratOptionsStr}
                   onChange={(e) => setCaratOptionsStr(e.target.value)}
-                  className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3.5 py-2.5 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359] placeholder-[#A8A29E]"
+                  className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3.5 py-2.5 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359] placeholder-[#A8A29E] dark:placeholder-[#6E675F]"
                 />
               </div>
 
@@ -325,7 +350,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
             {/* Right Fields: Media, Metals, Preview */}
             <div className="space-y-4">
               <div>
-                <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                   Available Precious Metals
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -338,13 +363,13 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                         onClick={() => handleToggleMetal(metal)}
                         className={`px-3 py-2.5 rounded-xl border text-xs font-semibold text-left transition-all flex items-center justify-between ${
                           isSelected
-                            ? 'border-[#B28359] bg-[#FDF7F0] text-[#8C5B32] ring-1 ring-[#B28359]/30 shadow-xs'
-                            : 'border-[#E5DFD5] bg-[#FAF9F5] text-[#78716C] hover:text-[#1C1917]'
+                            ? 'border-[#B28359] bg-[#FDF7F0] dark:bg-[#261E17] text-[#8C5B32] dark:text-[#D4AF37] ring-1 ring-[#B28359]/30 shadow-xs'
+                            : 'border-[#E5DFD5] dark:border-[#3D352E] bg-[#FAF9F5] dark:bg-[#211E1A] text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB]'
                         }`}
                       >
                         <span>{metal}</span>
                         {isSelected && (
-                          <Check className="w-3.5 h-3.5 text-[#8C5B32]" />
+                          <Check className="w-3.5 h-3.5 text-[#8C5B32] dark:text-[#D4AF37]" />
                         )}
                       </button>
                     );
@@ -353,47 +378,129 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
               </div>
 
               <div>
-                <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
-                  Product Image URL
+                <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
+                  Product Image *
                 </label>
-                <input
-                  type="text"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                  placeholder="https://... or select preset below"
-                  className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3.5 py-2 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359] placeholder-[#A8A29E]"
-                />
                 
-                {/* Image Presets */}
-                <div className="flex items-center gap-2 mt-2 overflow-x-auto pb-1">
-                  {presetImages.map((p) => (
+                {/* Primary Drag & Drop File Upload Area */}
+                <div
+                  onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                  onDragLeave={() => setIsDragging(false)}
+                  onDrop={handleDrop}
+                  className={`relative border-2 border-dashed rounded-2xl p-4 transition-all text-center flex flex-col items-center justify-center gap-2 cursor-pointer ${
+                    isDragging
+                      ? 'border-[#B28359] dark:border-[#D4AF37] bg-[#FDF7F0] dark:bg-[#261E17]'
+                      : 'border-[#E5DFD5] dark:border-[#3D352E] bg-[#FAF9F5] dark:bg-[#211E1A] hover:border-[#B28359] dark:hover:border-[#D4AF37]'
+                  }`}
+                >
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="product-photo-upload"
+                    className="hidden"
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files[0]) {
+                        handleFileUpload(e.target.files[0]);
+                      }
+                    }}
+                  />
+
+                  {imageUrl ? (
+                    <div className="flex items-center gap-3.5 w-full">
+                      <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-[#E5DFD5] dark:border-[#3D352E] shrink-0 bg-white dark:bg-[#181614] shadow-xs">
+                        <img src={imageUrl} alt="Product Preview" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="text-left flex-1 space-y-1">
+                        <span className="text-xs font-bold text-[#1C1917] dark:text-[#F5F2EB] block">
+                          Photo Selected & Loaded
+                        </span>
+                        <p className="text-[11px] text-[#78716C] dark:text-[#A3998E]">
+                          Click button to upload another image from device.
+                        </p>
+                        <label
+                          htmlFor="product-photo-upload"
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#B28359] hover:bg-[#9E7249] text-white text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer shadow-xs active:scale-95 mt-0.5"
+                        >
+                          <UploadCloud className="w-3.5 h-3.5 text-white" />
+                          <span>Upload Photo</span>
+                        </label>
+                      </div>
+                    </div>
+                  ) : (
+                    <label htmlFor="product-photo-upload" className="w-full py-3 cursor-pointer flex flex-col items-center">
+                      <div className="w-10 h-10 rounded-2xl bg-[#FDF7F0] dark:bg-[#261E17] border border-[#B28359]/30 dark:border-[#574628] flex items-center justify-center text-[#8C5B32] dark:text-[#D4AF37] mb-1.5 shadow-xs">
+                        <UploadCloud className="w-5 h-5" />
+                      </div>
+                      <span className="text-xs font-bold text-[#1C1917] dark:text-[#F5F2EB]">
+                        Upload Photo from Computer
+                      </span>
+                      <span className="text-[11px] text-[#78716C] dark:text-[#A3998E]">
+                        Click here or drag & drop image file
+                      </span>
+                    </label>
+                  )}
+                </div>
+
+                {/* Sample Presets Gallery & Optional URL Toggle */}
+                <div className="mt-3 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#78716C] dark:text-[#A3998E]">
+                      Or pick sample creation photo:
+                    </span>
                     <button
                       type="button"
-                      key={p.label}
-                      onClick={() => setImageUrl(p.url)}
-                      className="shrink-0 w-12 h-12 rounded-xl overflow-hidden border border-[#E5DFD5] hover:border-[#B28359] transition-all relative"
-                      title={p.label}
+                      onClick={() => setShowUrlInput(!showUrlInput)}
+                      className="text-[10px] text-[#0284C7] dark:text-[#38BDF8] font-semibold hover:underline flex items-center gap-1"
                     >
-                      <img src={p.url} alt={p.label} referrerPolicy="no-referrer" className="w-full h-full object-cover" />
+                      <LinkIcon className="w-3 h-3" />
+                      <span>{showUrlInput ? 'Hide URL' : 'Use Web Link'}</span>
                     </button>
-                  ))}
+                  </div>
+
+                  <div className="flex items-center gap-2 overflow-x-auto pb-1">
+                    {presetImages.map((p) => (
+                      <button
+                        type="button"
+                        key={p.label}
+                        onClick={() => setImageUrl(p.url)}
+                        className={`shrink-0 w-12 h-12 rounded-xl overflow-hidden border transition-all relative ${
+                          imageUrl === p.url
+                            ? 'border-[#B28359] dark:border-[#D4AF37] ring-2 ring-[#B28359]/40'
+                            : 'border-[#E5DFD5] dark:border-[#3D352E] opacity-70 hover:opacity-100'
+                        }`}
+                        title={p.label}
+                      >
+                        <img src={p.url} alt={p.label} referrerPolicy="no-referrer" className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+
+                  {showUrlInput && (
+                    <input
+                      type="text"
+                      value={imageUrl}
+                      onChange={(e) => setImageUrl(e.target.value)}
+                      placeholder="https://... image web link"
+                      className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3 py-1.5 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359] placeholder-[#A8A29E] dark:placeholder-[#6E675F] mt-1"
+                    />
+                  )}
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                  <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                     SKU Code
                   </label>
                   <input
                     type="text"
                     value={sku}
                     onChange={(e) => setSku(e.target.value)}
-                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3.5 py-2 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359]"
+                    className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3.5 py-2 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359]"
                   />
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                  <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                     Initial Stock Qty
                   </label>
                   <input
@@ -401,13 +508,13 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                     min="1"
                     value={inventoryQuantity}
                     onChange={(e) => setInventoryQuantity(Number(e.target.value))}
-                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3.5 py-2 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359]"
+                    className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3.5 py-2 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                   Product Description
                 </label>
                 <textarea
@@ -415,19 +522,19 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Describe the diamond cut, setting details, and craftsmanship..."
-                  className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3.5 py-2 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359] placeholder-[#A8A29E]"
+                  className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3.5 py-2 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359] placeholder-[#A8A29E] dark:placeholder-[#6E675F]"
                 />
               </div>
 
               <div>
-                <label className="text-xs uppercase tracking-wider text-[#78716C] font-medium block mb-1">
+                <label className="text-xs uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium block mb-1">
                   Tags (for search & Shopify collections)
                 </label>
                 <input
                   type="text"
                   value={tagsStr}
                   onChange={(e) => setTagsStr(e.target.value)}
-                  className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-xl px-3.5 py-2 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359]"
+                  className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl px-3.5 py-2 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359]"
                 />
               </div>
 
@@ -436,11 +543,11 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
           </div>
 
           {/* Action Buttons */}
-          <div className="pt-4 border-t border-[#EAE4DA] flex items-center justify-end gap-3">
+          <div className="pt-4 border-t border-[#EAE4DA] dark:border-[#332E2A] flex items-center justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2.5 rounded-full border border-[#E5DFD5] bg-[#FAF9F5] hover:bg-[#F2ECE1] text-[#78716C] hover:text-[#1C1917] text-xs font-semibold uppercase tracking-wider transition-colors"
+              className="px-5 py-2.5 rounded-full border border-[#E5DFD5] dark:border-[#3D352E] bg-[#FAF9F5] dark:bg-[#211E1A] hover:bg-[#F2ECE1] dark:hover:bg-[#2A241E] text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB] text-xs font-semibold uppercase tracking-wider transition-colors"
             >
               Cancel
             </button>
