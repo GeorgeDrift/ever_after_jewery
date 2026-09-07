@@ -3,7 +3,7 @@
 import React from 'react';
 import { Product, MetalType, FilterState } from '../types';
 import { ProductCard } from './ProductCard';
-import { SlidersHorizontal, RefreshCw, Gem, Sparkles, Check } from 'lucide-react';
+import { SlidersHorizontal, RefreshCw, Gem, Sparkles, Check, Search, X } from 'lucide-react';
 
 interface ProductCatalogProps {
   products: Product[];
@@ -25,6 +25,15 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
   const metals = ['All', '18k Yellow Gold', 'Platinum', '18k White Gold', '18k Rose Gold'];
   const shapes = ['All', 'Oval', 'Round Brilliant', 'Emerald', 'Cushion', 'Radiant', 'Pear'];
   const origins = ['All', 'Lab Grown', 'Natural'];
+
+  const quickSearchTags = [
+    'Oval Solitaire',
+    'Eternity Band',
+    '18k Yellow Gold',
+    'Lab-Grown',
+    'Emerald Cut',
+    'Tennis Bracelet'
+  ];
 
   const filteredProducts = products.filter((p) => {
     // Category
@@ -77,42 +86,42 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
     Boolean(filterState.searchQuery);
 
   return (
-    <section id="storefront-catalog" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <section id="storefront-catalog" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
       
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 border-b border-[#EAE4DA]">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#EAE4DA] dark:border-[#332E2A]">
         <div>
-          <div className="inline-flex items-center gap-2 text-xs sm:text-sm tracking-[0.22em] text-[#8C5B32] uppercase font-bold mb-1.5">
-            <Sparkles className="w-4 h-4 text-[#B28359]" />
+          <div className="inline-flex items-center gap-2 text-xs sm:text-sm tracking-[0.22em] text-[#8C5B32] dark:text-[#D4AF37] uppercase font-bold mb-1.5">
+            <Sparkles className="w-4 h-4 text-[#B28359] dark:text-[#D4AF37]" />
             <span>Curated Fine Diamond Storefront</span>
           </div>
-          <h2 className="font-serif-luxury text-3xl sm:text-5xl font-semibold text-[#1C1917]">
+          <h2 className="font-serif-luxury text-3xl sm:text-5xl font-semibold text-[#1C1917] dark:text-[#F5F2EB]">
             Handcrafted Jewelry Creations
           </h2>
-          <p className="text-sm sm:text-base text-[#78716C] mt-1.5 font-medium">
-            Browse our ready-to-wear creations.
+          <p className="text-sm sm:text-base text-[#78716C] dark:text-[#D4CEC4] mt-1.5 font-medium">
+            Search certified fine diamonds, engagement rings, and bespoke UK jewelry.
           </p>
         </div>
       </div>
 
       {/* Filter & Controls Bar */}
-      <div className="mt-6 p-5 sm:p-6 rounded-2xl bg-white border border-[#EAE4DA] shadow-[0_2px_16px_rgba(0,0,0,0.03)] space-y-4">
+      <div className="mt-6 p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#181614] border border-[#EAE4DA] dark:border-[#3A332B] shadow-[0_2px_16px_rgba(0,0,0,0.03)] space-y-4 transition-colors">
         
         {/* Header row */}
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5 text-xs sm:text-sm font-bold tracking-wider text-[#1C1917] uppercase">
-            <SlidersHorizontal className="w-4.5 h-4.5 text-[#B28359]" />
+          <div className="flex items-center gap-2.5 text-xs sm:text-sm font-bold tracking-wider text-[#1C1917] dark:text-[#F5F2EB] uppercase">
+            <SlidersHorizontal className="w-4.5 h-4.5 text-[#B28359] dark:text-[#D4AF37]" />
             <span>Refine Jewelry Selection</span>
           </div>
 
           <div className="flex items-center gap-3 text-xs sm:text-sm">
-            <span className="text-[#78716C]">
-              Showing <strong className="text-[#1C1917] font-bold">{sortedProducts.length}</strong> creations
+            <span className="text-[#78716C] dark:text-[#D4CEC4]">
+              Showing <strong className="text-[#1C1917] dark:text-[#F5F2EB] font-bold">{sortedProducts.length}</strong> creations
             </span>
             {hasActiveFilters && (
               <button
                 onClick={onResetFilters}
-                className="text-[#B28359] hover:underline flex items-center gap-1 font-bold"
+                className="text-[#B28359] dark:text-[#D4AF37] hover:underline flex items-center gap-1 font-bold"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
                 <span>Reset Filters</span>
@@ -123,7 +132,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
 
         {/* Quick Filter Chips */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 pt-1 scrollbar-none">
-          <span className="text-[11px] uppercase tracking-wider text-[#78716C] font-medium shrink-0 mr-1">
+          <span className="text-[11px] uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-medium shrink-0 mr-1">
             Quick Focus:
           </span>
 
@@ -132,11 +141,11 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
             onClick={() => onFilterChange({ metal: 'All' })}
             className={`m3-chip shrink-0 cursor-pointer ${
               filterState.metal === 'All'
-                ? 'bg-[#1C1917] text-white border border-[#1C1917] font-semibold shadow-xs'
+                ? 'bg-[#1C1917] dark:bg-[#D4AF37] text-white dark:text-[#141210] border border-[#1C1917] dark:border-[#D4AF37] font-semibold shadow-xs'
                 : 'm3-chip-outlined'
             }`}
           >
-            {filterState.metal === 'All' && <Check className="w-3 h-3 text-[#B28359]" />}
+            {filterState.metal === 'All' && <Check className="w-3 h-3 text-[#B28359] dark:text-[#141210]" />}
             <span>All Metals</span>
           </button>
 
@@ -212,16 +221,34 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
         </div>
 
         {/* Filter Dropdowns */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-[#EAE4DA]">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-3 border-t border-[#EAE4DA] dark:border-[#332E2A]">
+          {/* Collection Category Filter */}
+          <div>
+            <label className="text-[10px] uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] block mb-1 font-medium">
+              Collection Category
+            </label>
+            <select
+              value={filterState.category}
+              onChange={(e) => onFilterChange({ category: e.target.value })}
+              className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-lg px-3 py-2 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359] dark:focus:border-[#D4AF37] font-medium"
+            >
+              <option value="all">All Collections</option>
+              <option value="engagement-rings">Engagement Rings</option>
+              <option value="wedding-bands">Wedding Bands</option>
+              <option value="fine-jewelry">Fine Jewellery</option>
+              <option value="bespoke-creations">Bespoke</option>
+            </select>
+          </div>
+
           {/* Metal Filter */}
           <div>
-            <label className="text-[10px] uppercase tracking-wider text-[#78716C] block mb-1 font-medium">
+            <label className="text-[10px] uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] block mb-1 font-medium">
               Precious Metal
             </label>
             <select
               value={filterState.metal}
               onChange={(e) => onFilterChange({ metal: e.target.value })}
-              className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-lg px-3 py-2 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359]"
+              className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-lg px-3 py-2 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359] dark:focus:border-[#D4AF37]"
             >
               {metals.map((m) => (
                 <option key={m} value={m}>{m}</option>
@@ -231,13 +258,13 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
 
           {/* Diamond Shape Filter */}
           <div>
-            <label className="text-[10px] uppercase tracking-wider text-[#78716C] block mb-1 font-medium">
+            <label className="text-[10px] uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] block mb-1 font-medium">
               Diamond Shape
             </label>
             <select
               value={filterState.shape}
               onChange={(e) => onFilterChange({ shape: e.target.value })}
-              className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-lg px-3 py-2 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359]"
+              className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-lg px-3 py-2 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359] dark:focus:border-[#D4AF37]"
             >
               {shapes.map((s) => (
                 <option key={s} value={s}>{s}</option>
@@ -247,13 +274,13 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
 
           {/* Diamond Origin Filter */}
           <div>
-            <label className="text-[10px] uppercase tracking-wider text-[#78716C] block mb-1 font-medium">
+            <label className="text-[10px] uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] block mb-1 font-medium">
               Diamond Origin
             </label>
             <select
               value={filterState.diamondType}
               onChange={(e) => onFilterChange({ diamondType: e.target.value })}
-              className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-lg px-3 py-2 text-xs text-[#1C1917] focus:outline-none focus:border-[#0284C7]"
+              className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-lg px-3 py-2 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#0284C7]"
             >
               {origins.map((o) => (
                 <option key={o} value={o}>{o}</option>
@@ -263,13 +290,13 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
 
           {/* Sort By */}
           <div>
-            <label className="text-[10px] uppercase tracking-wider text-[#78716C] block mb-1 font-medium">
+            <label className="text-[10px] uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] block mb-1 font-medium">
               Sort By
             </label>
             <select
               value={filterState.sortBy}
               onChange={(e) => onFilterChange({ sortBy: e.target.value as any })}
-              className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-lg px-3 py-2 text-xs text-[#1C1917] focus:outline-none focus:border-[#B28359]"
+              className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-lg px-3 py-2 text-xs text-[#1C1917] dark:text-[#F5F2EB] focus:outline-none focus:border-[#B28359] dark:focus:border-[#D4AF37]"
             >
               <option value="featured">Featured / Bestsellers</option>
               <option value="price-asc">Price: Low to High</option>
@@ -293,18 +320,18 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
           ))}
         </div>
       ) : (
-        <div className="mt-12 text-center py-16 px-4 rounded-2xl border border-[#EAE4DA] bg-white shadow-sm">
-          <Gem className="w-12 h-12 text-[#B28359] mx-auto mb-4" />
-          <h3 className="font-serif-luxury text-xl text-[#1C1917] font-semibold mb-2">
+        <div className="mt-12 text-center py-16 px-4 rounded-2xl border border-[#EAE4DA] dark:border-[#332E2A] bg-white dark:bg-[#181614] shadow-sm">
+          <Gem className="w-12 h-12 text-[#B28359] dark:text-[#D4AF37] mx-auto mb-4" />
+          <h3 className="font-serif-luxury text-xl text-[#1C1917] dark:text-[#F5F2EB] font-semibold mb-2">
             No creations match your filters
           </h3>
-          <p className="text-xs text-[#78716C] max-w-md mx-auto mb-6">
+          <p className="text-xs text-[#78716C] dark:text-[#A3998E] max-w-md mx-auto mb-6">
             Try adjusting your metal, diamond shape, or search term to discover our complete collection.
           </p>
           <div className="flex items-center justify-center gap-3">
             <button
               onClick={onResetFilters}
-              className="px-5 py-2.5 rounded-full bg-[#B28359] hover:bg-[#9E7249] text-white text-xs font-semibold uppercase tracking-wider transition-all shadow-sm"
+              className="px-5 py-2.5 rounded-full bg-[#B28359] dark:bg-[#D4AF37] hover:bg-[#9E7249] dark:hover:bg-[#C59F2D] text-white dark:text-[#141210] text-xs font-bold uppercase tracking-wider transition-all shadow-sm"
             >
               Clear All Filters
             </button>

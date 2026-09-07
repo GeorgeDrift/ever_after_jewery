@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Product, CartItem, FilterState, MetalType, DiamondOrigin } from '@/types';
 import { INITIAL_PRODUCTS } from '@/data/initialProducts';
 import { Header } from '@/components/Header';
@@ -199,106 +200,123 @@ export default function StorefrontPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF9F5] text-[#1C1917]">
+    <div className="min-h-screen flex flex-col bg-[#FAF9F5] dark:bg-[#0E0D0C] text-[#1C1917] dark:text-[#F5F2EB] transition-colors">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-white border border-[#E5DFD5] text-[#1C1917] px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 text-xs animate-in slide-in-from-bottom-5">
-          <span className="w-2 h-2 rounded-full bg-[#B28359]" />
+        <div className="fixed bottom-6 right-6 z-50 bg-white dark:bg-[#181614] border border-[#E5DFD5] dark:border-[#3A332B] text-[#1C1917] dark:text-[#F5F2EB] px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 text-xs animate-in slide-in-from-bottom-5">
+          <span className="w-2 h-2 rounded-full bg-[#B28359] dark:bg-[#D4AF37]" />
           <span className="font-medium">{toastMessage}</span>
         </div>
       )}
 
       {/* Main Content Area */}
-      <main className="flex-1">
-        {currentView === 'home' ? (
-          /* HOME PAGE: High-Fashion Editorial Home Image Poster */
-          <HeroSection
-            onExploreClick={() => navigateToShop()}
-            onGoShop={() => navigateToShop()}
-            onGoHome={navigateToHome}
-            onBespokeClick={() => setIsConsultationOpen(true)}
-            onOpenDiamondGuide={() => setIsDiamondGuideOpen(true)}
-            onOpenAddProduct={() => setIsAddProductOpen(true)}
-            onOpenCart={() => setIsCartOpen(true)}
-            onOpenShopifyExport={() => setIsShopifyExportOpen(true)}
-            onOpenAuth={() => setIsAuthOpen(true)}
-            cartCount={cart.reduce((s, i) => s + i.quantity, 0)}
-            onSelectProduct={(p) => {
-              navigateToShop();
-              setSelectedProduct(p);
-              setSelectedProductMetal(p.defaultMetal);
-            }}
-            products={products}
-            searchQuery={filterState.searchQuery}
-            onSearchChange={(q) => setFilterState((prev) => ({ ...prev, searchQuery: q }))}
-          />
-        ) : (
-          /* SHOP SECTION: Ever After Brand Header, Hallmarks & Product Catalog */
-          <div id="shop-storefront-view" className="animate-in fade-in duration-300">
-            {/* 1. Ever After Top Announcement & Navigation Header */}
-            <div id="brand-header-section" className="sticky top-0 z-40">
-              <Header
-                cartCount={cart.reduce((s, i) => s + i.quantity, 0)}
-                onOpenCart={() => setIsCartOpen(true)}
-                onOpenConsultation={() => setIsConsultationOpen(true)}
+      <main className="flex-1 overflow-hidden">
+        <AnimatePresence mode="wait">
+          {currentView === 'home' ? (
+            /* HOME PAGE: High-Fashion Editorial Home Image Poster */
+            <motion.div
+              key="home-view"
+              initial={{ opacity: 0, y: 12, scale: 0.995 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -12, scale: 0.995 }}
+              transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+            >
+              <HeroSection
+                onExploreClick={() => navigateToShop()}
+                onGoShop={() => navigateToShop()}
+                onGoHome={navigateToHome}
+                onBespokeClick={() => setIsConsultationOpen(true)}
                 onOpenDiamondGuide={() => setIsDiamondGuideOpen(true)}
+                onOpenAddProduct={() => setIsAddProductOpen(true)}
+                onOpenCart={() => setIsCartOpen(true)}
+                onOpenShopifyExport={() => setIsShopifyExportOpen(true)}
                 onOpenAuth={() => setIsAuthOpen(true)}
-                selectedCategory={filterState.category}
-                onSelectCategory={(cat) => {
-                  setFilterState((prev) => ({ ...prev, category: cat }));
-                  scrollToCatalog();
+                cartCount={cart.reduce((s, i) => s + i.quantity, 0)}
+                onSelectProduct={(p) => {
+                  navigateToShop();
+                  setSelectedProduct(p);
+                  setSelectedProductMetal(p.defaultMetal);
                 }}
+                products={products}
                 searchQuery={filterState.searchQuery}
                 onSearchChange={(q) => setFilterState((prev) => ({ ...prev, searchQuery: q }))}
-                onGoHome={navigateToHome}
               />
-            </div>
+            </motion.div>
+          ) : (
+            /* SHOP SECTION: Ever After Brand Header, Hallmarks & Product Catalog */
+            <motion.div
+              key="shop-view"
+              id="shop-storefront-view"
+              initial={{ opacity: 0, y: 16, scale: 0.995 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -16, scale: 0.995 }}
+              transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+            >
+              {/* 1. Ever After Top Announcement & Navigation Header */}
+              <div id="brand-header-section" className="sticky top-0 z-40">
+                <Header
+                  cartCount={cart.reduce((s, i) => s + i.quantity, 0)}
+                  onOpenCart={() => setIsCartOpen(true)}
+                  onOpenConsultation={() => setIsConsultationOpen(true)}
+                  onOpenDiamondGuide={() => setIsDiamondGuideOpen(true)}
+                  onOpenAuth={() => setIsAuthOpen(true)}
+                  selectedCategory={filterState.category}
+                  onSelectCategory={(cat) => {
+                    setFilterState((prev) => ({ ...prev, category: cat }));
+                    scrollToCatalog();
+                  }}
+                  searchQuery={filterState.searchQuery}
+                  onSearchChange={(q) => setFilterState((prev) => ({ ...prev, searchQuery: q }))}
+                  onGoHome={navigateToHome}
+                />
+              </div>
 
-            {/* 2. Sleek Luxury Atelier Hallmark Bar */}
-            <div className="border-b border-[#EAE3D5] bg-[#FDFBF7] py-2.5 px-4 text-xs">
-              <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center sm:justify-between gap-y-1 gap-x-6 text-[#78716C]">
-                <div className="flex items-center gap-1.5 font-medium text-[#1C1917]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#B28359]" />
-                  <span>GIA & IGI Certified Diamonds</span>
-                </div>
-                <div className="flex items-center gap-1.5 font-medium text-[#1C1917]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
-                  <span>Handcrafted in London</span>
-                </div>
-                <div className="flex items-center gap-1.5 font-medium text-[#1C1917]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#B28359]" />
-                  <span>Insured Royal Mail Delivery</span>
-                </div>
-                <div className="hidden md:flex items-center gap-1.5 font-medium text-[#1C1917]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-                  <span>Free Laser Engraving</span>
+              {/* 2. Sleek Luxury Atelier Hallmark Bar */}
+              <div className="border-b border-[#EAE3D5] dark:border-[#332E2A] bg-[#FDFBF7] dark:bg-[#1A1815] py-2.5 px-4 text-xs transition-colors">
+                <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center sm:justify-between gap-y-1 gap-x-6 text-[#78716C] dark:text-[#D4CEC4]">
+                  <div className="flex items-center gap-1.5 font-medium text-[#1C1917] dark:text-[#F5F2EB]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#B28359] dark:bg-[#D4AF37]" />
+                    <span>GIA & IGI Certified Diamonds</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 font-medium text-[#1C1917] dark:text-[#F5F2EB]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] dark:bg-[#38BDF8]" />
+                    <span>Handcrafted in London</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 font-medium text-[#1C1917] dark:text-[#F5F2EB]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#B28359] dark:bg-[#D4AF37]" />
+                    <span>Insured Royal Mail Delivery</span>
+                  </div>
+                  <div className="hidden md:flex items-center gap-1.5 font-medium text-[#1C1917] dark:text-[#F5F2EB]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400" />
+                    <span>Free Laser Engraving</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* 3. Products Catalog with Filters, Metal Pickers, and 3D Customizer */}
-            <ProductCatalog
-              products={products}
-              filterState={filterState}
-              onFilterChange={(newFilter) => setFilterState((prev) => ({ ...prev, ...newFilter }))}
-              onResetFilters={() =>
-                setFilterState({
-                  category: 'all',
-                  metal: 'All',
-                  shape: 'All',
-                  diamondType: 'All',
-                  searchQuery: '',
-                  sortBy: 'featured'
-                })
-              }
-              onSelectProduct={(product, metal) => {
-                setSelectedProduct(product);
-                setSelectedProductMetal(metal);
-              }}
-              onQuickAdd={handleQuickAdd}
-            />
-          </div>
-        )}
+              {/* 3. Products Catalog with Filters, Metal Pickers, and 3D Customizer */}
+              <ProductCatalog
+                products={products}
+                filterState={filterState}
+                onFilterChange={(newFilter) => setFilterState((prev) => ({ ...prev, ...newFilter }))}
+                onResetFilters={() =>
+                  setFilterState({
+                    category: 'all',
+                    metal: 'All',
+                    shape: 'All',
+                    diamondType: 'All',
+                    searchQuery: '',
+                    sortBy: 'featured'
+                  })
+                }
+                onSelectProduct={(product, metal) => {
+                  setSelectedProduct(product);
+                  setSelectedProductMetal(metal);
+                }}
+                onQuickAdd={handleQuickAdd}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
       {/* Footer */}

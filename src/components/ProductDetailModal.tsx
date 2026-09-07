@@ -80,7 +80,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-5xl bg-white border border-[#EAE4DA] rounded-3xl shadow-2xl overflow-hidden my-auto"
+        className="relative w-full max-w-5xl bg-white dark:bg-[#181614] border border-[#EAE4DA] dark:border-[#3A332B] rounded-3xl shadow-2xl overflow-hidden my-auto transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Specular Ambient Rim Light Line */}
@@ -90,7 +90,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
         <button
           id="close-detail-modal-btn"
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 p-2 rounded-full bg-[#FAF9F5] text-[#78716C] hover:text-[#1C1917] hover:bg-[#F2EDE4] transition-all border border-[#E5DFD5]"
+          className="absolute top-4 right-4 z-20 p-2 rounded-full bg-[#FAF9F5] dark:bg-[#211E1A] text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB] hover:bg-[#F2EDE4] dark:hover:bg-[#2A241E] transition-all border border-[#E5DFD5] dark:border-[#3D352E]"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
@@ -99,10 +99,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 max-h-[90vh] overflow-y-auto">
           
           {/* Left: Gallery */}
-          <div className="lg:col-span-6 p-6 sm:p-8 bg-[#FAF9F5] flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#EAE4DA]">
+          <div className="lg:col-span-6 p-6 sm:p-8 bg-[#FAF9F5] dark:bg-[#121110] flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#EAE4DA] dark:border-[#2D2720]">
             <div>
               {/* Main Preview Image */}
-              <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-white border border-[#EAE4DA] shadow-xs group">
+              <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-white dark:bg-[#181614] border border-[#EAE4DA] dark:border-[#3D352E] shadow-xs group">
                 <img
                   src={product.images[selectedImageIndex] || product.images[0]}
                   alt={`${product.title} preview`}
@@ -110,13 +110,13 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
 
-                <div className="absolute bottom-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-[#E5DFD5] text-[10px] text-[#8C5B32] uppercase tracking-wider font-semibold shadow-xs">
+                <div className="absolute bottom-3 left-3 px-3 py-1 rounded-full bg-white/90 dark:bg-[#181614]/90 backdrop-blur-md border border-[#E5DFD5] dark:border-[#3A332B] text-[10px] text-[#8C5B32] dark:text-[#D4AF37] uppercase tracking-wider font-semibold shadow-xs">
                   {selectedMetal} • {selectedCarat.toFixed(2)}ct
                 </div>
 
                 {/* Sky Blue Certification Badge */}
-                <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#F0F9FF]/95 backdrop-blur-md border border-[#BAE6FD] text-[10px] text-[#0284C7] uppercase tracking-wider font-semibold flex items-center gap-1.5 shadow-xs">
-                  <Sparkles className="w-3 h-3 text-[#0284C7]" />
+                <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#F0F9FF]/95 dark:bg-[#112330]/95 backdrop-blur-md border border-[#BAE6FD] dark:border-[#1E4968] text-[10px] text-[#0284C7] dark:text-[#38BDF8] uppercase tracking-wider font-semibold flex items-center gap-1.5 shadow-xs">
+                  <Sparkles className="w-3 h-3 text-[#0284C7] dark:text-[#38BDF8]" />
                   <span>{product.certification}</span>
                 </div>
               </div>
@@ -130,8 +130,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       onClick={() => setSelectedImageIndex(idx)}
                       className={`relative w-16 h-16 rounded-xl overflow-hidden border-2 shrink-0 transition-all ${
                         selectedImageIndex === idx 
-                          ? 'border-[#B28359] ring-2 ring-[#B28359]/40 shadow-xs' 
-                          : 'border-[#EAE4DA] opacity-70 hover:opacity-100 bg-white'
+                          ? 'border-[#B28359] dark:border-[#D4AF37] ring-2 ring-[#B28359]/40 shadow-xs' 
+                          : 'border-[#EAE4DA] dark:border-[#3D352E] opacity-70 hover:opacity-100 bg-white dark:bg-[#181614]'
                       }`}
                     >
                       <img src={img} alt="Thumbnail" referrerPolicy="no-referrer" className="w-full h-full object-cover" />
@@ -142,57 +142,57 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             </div>
 
             {/* Quality Certifications Guarantee */}
-            <div className="mt-6 pt-6 border-t border-[#EAE4DA] grid grid-cols-2 gap-3 text-left">
+            <div className="mt-6 pt-6 border-t border-[#EAE4DA] dark:border-[#2D2720] grid grid-cols-2 gap-3 text-left">
               <div className="flex items-start gap-2.5">
-                <ShieldCheck className="w-4 h-4 text-[#B28359] shrink-0 mt-0.5" />
+                <ShieldCheck className="w-4 h-4 text-[#B28359] dark:text-[#D4AF37] shrink-0 mt-0.5" />
                 <div className="text-[11px]">
-                  <strong className="text-[#1C1917] block font-medium">Assay Hallmarked UK</strong>
-                  <span className="text-[#78716C]">Edinburgh & London Offices</span>
+                  <strong className="text-[#1C1917] dark:text-[#F5F2EB] block font-medium">Assay Hallmarked UK</strong>
+                  <span className="text-[#78716C] dark:text-[#A3998E]">Edinburgh & London Offices</span>
                 </div>
               </div>
               <div className="flex items-start gap-2.5">
-                <Award className="w-4 h-4 text-[#0284C7] shrink-0 mt-0.5" />
+                <Award className="w-4 h-4 text-[#0284C7] dark:text-[#38BDF8] shrink-0 mt-0.5" />
                 <div className="text-[11px]">
-                  <strong className="text-[#0284C7] block font-medium">Independent Grading</strong>
-                  <span className="text-[#78716C]">Official GIA / IGI Dossier</span>
+                  <strong className="text-[#0284C7] dark:text-[#38BDF8] block font-medium">Independent Grading</strong>
+                  <span className="text-[#78716C] dark:text-[#A3998E]">Official GIA / IGI Dossier</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Right: Customizer & Purchase */}
-          <div className="lg:col-span-6 p-6 sm:p-8 space-y-6 flex flex-col justify-between bg-white">
+          <div className="lg:col-span-6 p-6 sm:p-8 space-y-6 flex flex-col justify-between bg-white dark:bg-[#181614]">
             <div className="space-y-5">
               
               {/* Header Details */}
               <div>
-                <div className="flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[0.18em] text-[#8C5B32] font-bold mb-1.5">
+                <div className="flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[0.18em] text-[#8C5B32] dark:text-[#D4AF37] font-bold mb-1.5">
                   <span>{product.diamondShape} Cut</span>
-                  <span className="text-[#D6CEBF]">•</span>
+                  <span className="text-[#D6CEBF] dark:text-[#574628]">•</span>
                   <span>{product.clarity} Clarity</span>
-                  <span className="text-[#D6CEBF]">•</span>
+                  <span className="text-[#D6CEBF] dark:text-[#574628]">•</span>
                   <span>Color {product.colorGrade}</span>
                 </div>
                 
-                <h1 className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#1C1917] leading-tight">
+                <h1 className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#1C1917] dark:text-[#F5F2EB] leading-tight">
                   {product.title}
                 </h1>
                 
-                <p className="text-sm sm:text-base text-[#78716C] mt-1.5 font-medium">
+                <p className="text-sm sm:text-base text-[#78716C] dark:text-[#A3998E] mt-1.5 font-medium">
                   {product.tagline}
                 </p>
 
                 {/* Price Display */}
                 <div className="mt-3 flex items-baseline gap-3">
-                  <span className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#B28359]">
+                  <span className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#B28359] dark:text-[#D4AF37]">
                     £{finalPrice.toLocaleString()}
                   </span>
                   {finalComparePrice && (
-                    <span className="text-base sm:text-lg text-[#A8A29E] line-through font-medium">
+                    <span className="text-base sm:text-lg text-[#A8A29E] dark:text-[#78716C] line-through font-medium">
                       £{finalComparePrice.toLocaleString()}
                     </span>
                   )}
-                  <span className="text-xs sm:text-sm text-[#78716C] font-semibold">
+                  <span className="text-xs sm:text-sm text-[#78716C] dark:text-[#A3998E] font-semibold">
                     VAT Included • Insured UK Delivery
                   </span>
                 </div>
@@ -201,8 +201,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               {/* 1. Metal Selection */}
               <div className="space-y-2">
                 <div className="flex justify-between text-xs sm:text-sm font-semibold">
-                  <span className="text-[#78716C] uppercase tracking-wider font-bold">1. Choose Precious Metal</span>
-                  <span className="font-bold text-[#8C5B32]">
+                  <span className="text-[#78716C] dark:text-[#A3998E] uppercase tracking-wider font-bold">1. Choose Precious Metal</span>
+                  <span className="font-bold text-[#8C5B32] dark:text-[#D4AF37]">
                     {selectedMetal}
                   </span>
                 </div>
@@ -215,8 +215,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                         onClick={() => setSelectedMetal(metal)}
                         className={`px-3.5 py-3 rounded-xl border text-xs sm:text-sm font-bold text-center transition-all ${
                           isSelected
-                            ? 'border-[#B28359] bg-[#FDF7F0] text-[#8C5B32] ring-1 ring-[#B28359]/30 shadow-xs'
-                            : 'border-[#E5DFD5] bg-[#FAF9F5] text-[#57534E] hover:text-[#1C1917] hover:border-[#D5CABE]'
+                            ? 'border-[#B28359] bg-[#FDF7F0] dark:bg-[#261E17] text-[#8C5B32] dark:text-[#D4AF37] ring-1 ring-[#B28359]/30 shadow-xs'
+                            : 'border-[#E5DFD5] dark:border-[#3D352E] bg-[#FAF9F5] dark:bg-[#211E1A] text-[#57534E] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB] hover:border-[#D5CABE] dark:hover:border-[#574628]'
                         }`}
                       >
                         {metal}
@@ -229,8 +229,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               {/* 2. Diamond Origin */}
               <div className="space-y-2">
                 <div className="flex justify-between text-xs sm:text-sm font-semibold">
-                  <span className="text-[#78716C] uppercase tracking-wider font-bold">2. Diamond Origin</span>
-                  <span className={`font-bold ${selectedOrigin === 'Lab Grown' ? 'text-[#0284C7]' : 'text-[#8C5B32]'}`}>
+                  <span className="text-[#78716C] dark:text-[#A3998E] uppercase tracking-wider font-bold">2. Diamond Origin</span>
+                  <span className={`font-bold ${selectedOrigin === 'Lab Grown' ? 'text-[#0284C7] dark:text-[#38BDF8]' : 'text-[#8C5B32] dark:text-[#D4AF37]'}`}>
                     {selectedOrigin}
                   </span>
                 </div>
@@ -239,29 +239,29 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     onClick={() => setSelectedOrigin('Lab Grown')}
                     className={`p-3.5 rounded-xl border text-xs sm:text-sm text-left transition-all ${
                       selectedOrigin === 'Lab Grown'
-                        ? 'border-[#BAE6FD] bg-[#F0F9FF] text-[#0284C7] ring-1 ring-[#BAE6FD] shadow-xs'
-                        : 'border-[#E5DFD5] bg-[#FAF9F5] text-[#57534E] hover:text-[#1C1917] hover:border-[#D5CABE]'
+                        ? 'border-[#BAE6FD] dark:border-[#1E4968] bg-[#F0F9FF] dark:bg-[#112330] text-[#0284C7] dark:text-[#38BDF8] ring-1 ring-[#BAE6FD] dark:ring-[#1E4968] shadow-xs'
+                        : 'border-[#E5DFD5] dark:border-[#3D352E] bg-[#FAF9F5] dark:bg-[#211E1A] text-[#57534E] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB] hover:border-[#D5CABE]'
                     }`}
                   >
-                    <div className="flex items-center gap-1.5 font-bold text-[#1C1917] text-sm sm:text-base">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#0284C7]" />
+                    <div className="flex items-center gap-1.5 font-bold text-[#1C1917] dark:text-[#F5F2EB] text-sm sm:text-base">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#0284C7] dark:bg-[#38BDF8]" />
                       <span>Lab-Grown Diamond</span>
                     </div>
-                    <div className="text-xs text-[#78716C] mt-1 font-medium">100% Real Carbon • Exceptional Value</div>
+                    <div className="text-xs text-[#78716C] dark:text-[#A3998E] mt-1 font-medium">100% Real Carbon • Exceptional Value</div>
                   </button>
                   <button
                     onClick={() => setSelectedOrigin('Natural')}
                     className={`p-3.5 rounded-xl border text-xs sm:text-sm text-left transition-all ${
                       selectedOrigin === 'Natural'
-                        ? 'border-[#E8D9C8] bg-[#FDF7F0] text-[#8C5B32] ring-1 ring-[#E8D9C8] shadow-xs'
-                        : 'border-[#E5DFD5] bg-[#FAF9F5] text-[#57534E] hover:text-[#1C1917] hover:border-[#D5CABE]'
+                        ? 'border-[#E8D9C8] dark:border-[#574628] bg-[#FDF7F0] dark:bg-[#261E17] text-[#8C5B32] dark:text-[#D4AF37] ring-1 ring-[#E8D9C8] dark:ring-[#574628] shadow-xs'
+                        : 'border-[#E5DFD5] dark:border-[#3D352E] bg-[#FAF9F5] dark:bg-[#211E1A] text-[#57534E] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB] hover:border-[#D5CABE]'
                     }`}
                   >
-                    <div className="flex items-center gap-1.5 font-bold text-[#1C1917] text-sm sm:text-base">
-                      <Gem className="w-4 h-4 text-[#B28359]" />
+                    <div className="flex items-center gap-1.5 font-bold text-[#1C1917] dark:text-[#F5F2EB] text-sm sm:text-base">
+                      <Gem className="w-4 h-4 text-[#B28359] dark:text-[#D4AF37]" />
                       <span>Natural Earth Diamond</span>
                     </div>
-                    <div className="text-xs text-[#78716C] mt-1 font-medium">Mined from Earth • Rare & Heirloom</div>
+                    <div className="text-xs text-[#78716C] dark:text-[#A3998E] mt-1 font-medium">Mined from Earth • Rare & Heirloom</div>
                   </button>
                 </div>
               </div>
@@ -269,8 +269,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               {/* 3. Carat Weight Selection */}
               <div className="space-y-2">
                 <div className="flex justify-between text-xs sm:text-sm font-semibold">
-                  <span className="text-[#78716C] uppercase tracking-wider font-bold">3. Center Diamond Carat</span>
-                  <span className="text-[#8C5B32] font-bold">{selectedCarat.toFixed(2)} Carats</span>
+                  <span className="text-[#78716C] dark:text-[#A3998E] uppercase tracking-wider font-bold">3. Center Diamond Carat</span>
+                  <span className="text-[#8C5B32] dark:text-[#D4AF37] font-bold">{selectedCarat.toFixed(2)} Carats</span>
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
                   {product.caratOptions.map((carat) => (
@@ -279,8 +279,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       onClick={() => setSelectedCarat(carat)}
                       className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-bold transition-all ${
                         selectedCarat === carat
-                          ? 'border-[#B28359] bg-[#B28359] text-white shadow-sm scale-105'
-                          : 'border-[#E5DFD5] bg-[#FAF9F5] text-[#1C1917] hover:border-[#B28359]/40'
+                          ? 'border-[#B28359] dark:border-[#D4AF37] bg-[#B28359] dark:bg-[#D4AF37] text-white dark:text-[#1C1917] shadow-sm scale-105'
+                          : 'border-[#E5DFD5] dark:border-[#3D352E] bg-[#FAF9F5] dark:bg-[#211E1A] text-[#1C1917] dark:text-[#F5F2EB] hover:border-[#B28359]/40'
                       }`}
                     >
                       {carat.toFixed(1)} ct
@@ -293,10 +293,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <div className="flex items-center justify-between text-xs sm:text-sm mb-1 font-semibold">
-                    <span className="text-[#78716C] uppercase tracking-wider font-bold">UK Ring Size</span>
+                    <span className="text-[#78716C] dark:text-[#A3998E] uppercase tracking-wider font-bold">UK Ring Size</span>
                     <button 
                       onClick={() => setShowSizeGuide(!showSizeGuide)}
-                      className="text-xs text-[#0284C7] hover:underline flex items-center gap-1 font-bold"
+                      className="text-xs text-[#0284C7] dark:text-[#38BDF8] hover:underline flex items-center gap-1 font-bold"
                     >
                       <HelpCircle className="w-3.5 h-3.5" />
                       <span>Size Guide</span>
@@ -305,7 +305,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   <select
                     value={selectedSize}
                     onChange={(e) => setSelectedSize(e.target.value)}
-                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-lg px-3.5 py-2.5 text-xs sm:text-sm text-[#1C1917] font-semibold focus:outline-none focus:border-[#B28359]"
+                    className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-lg px-3.5 py-2.5 text-xs sm:text-sm text-[#1C1917] dark:text-[#F5F2EB] font-semibold focus:outline-none focus:border-[#B28359] dark:focus:border-[#D4AF37]"
                   >
                     {ukRingSizes.map((size) => (
                       <option key={size} value={size}>
@@ -317,7 +317,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-xs sm:text-sm uppercase tracking-wider text-[#78716C] font-bold block mb-1">
+                  <label className="text-xs sm:text-sm uppercase tracking-wider text-[#78716C] dark:text-[#A3998E] font-bold block mb-1">
                     Free Laser Engraving
                   </label>
                   <input
@@ -326,15 +326,15 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     placeholder="e.g. Forever & Always"
                     value={engravingText}
                     onChange={(e) => setEngravingText(e.target.value)}
-                    className="w-full bg-[#FAF9F5] border border-[#E5DFD5] rounded-lg px-3.5 py-2.5 text-xs sm:text-sm text-[#1C1917] font-semibold focus:outline-none focus:border-[#B28359] placeholder-[#A8A29E]"
+                    className="w-full bg-[#FAF9F5] dark:bg-[#211E1A] border border-[#E5DFD5] dark:border-[#3D352E] rounded-lg px-3.5 py-2.5 text-xs sm:text-sm text-[#1C1917] dark:text-[#F5F2EB] font-semibold focus:outline-none focus:border-[#B28359] dark:focus:border-[#D4AF37] placeholder-[#A8A29E] dark:placeholder-[#6E675F]"
                   />
                 </div>
               </div>
 
               {/* Sizing Guide Drawer Info */}
               {showSizeGuide && (
-                <div className="p-3.5 bg-[#FAF9F5] rounded-lg border border-[#E5DFD5] text-xs sm:text-sm text-[#78716C] space-y-1 animate-in fade-in duration-150 font-medium">
-                  <p className="font-bold text-[#1C1917]">Need help finding their ring size?</p>
+                <div className="p-3.5 bg-[#FAF9F5] dark:bg-[#211E1A] rounded-lg border border-[#E5DFD5] dark:border-[#3D352E] text-xs sm:text-sm text-[#78716C] dark:text-[#A3998E] space-y-1 animate-in fade-in duration-150 font-medium">
+                  <p className="font-bold text-[#1C1917] dark:text-[#F5F2EB]">Need help finding their ring size?</p>
                   <p>Our average UK female ring size is <strong>M</strong>. We provide <strong>100% complimentary resizing</strong> within 60 days of delivery.</p>
                 </div>
               )}
@@ -369,9 +369,9 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     href={`https://wa.me/447737806748?text=${whatsappMessage}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="py-2.5 px-3 rounded-full bg-[#FAF9F5] hover:bg-[#F3EFE7] border border-[#E5DFD5] text-xs text-[#1C1917] font-medium flex items-center justify-center gap-1.5 transition-colors"
+                    className="py-2.5 px-3 rounded-full bg-[#FAF9F5] dark:bg-[#211E1A] hover:bg-[#F3EFE7] dark:hover:bg-[#2A241E] border border-[#E5DFD5] dark:border-[#3D352E] text-xs text-[#1C1917] dark:text-[#F5F2EB] font-medium flex items-center justify-center gap-1.5 transition-colors"
                   >
-                    <MessageCircle className="w-4 h-4 text-emerald-600" />
+                    <MessageCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     <span>WhatsApp Specialist</span>
                   </a>
 
@@ -380,21 +380,21 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       onClose();
                       onOpenConsultation();
                     }}
-                    className="py-2.5 px-3 rounded-full bg-[#FAF9F5] hover:bg-[#F3EFE7] border border-[#E5DFD5] text-xs text-[#1C1917] font-medium flex items-center justify-center gap-1.5 transition-colors"
+                    className="py-2.5 px-3 rounded-full bg-[#FAF9F5] dark:bg-[#211E1A] hover:bg-[#F3EFE7] dark:hover:bg-[#2A241E] border border-[#E5DFD5] dark:border-[#3D352E] text-xs text-[#1C1917] dark:text-[#F5F2EB] font-medium flex items-center justify-center gap-1.5 transition-colors"
                   >
-                    <Calendar className="w-4 h-4 text-[#B28359]" />
+                    <Calendar className="w-4 h-4 text-[#B28359] dark:text-[#D4AF37]" />
                     <span>Book Viewing</span>
                   </button>
                 </div>
               </div>
 
               {/* Accordion Tabs for specifications */}
-              <div className="pt-3 border-t border-[#EAE4DA]">
-                <div className="flex border-b border-[#EAE4DA] text-xs">
+              <div className="pt-3 border-t border-[#EAE4DA] dark:border-[#332E2A]">
+                <div className="flex border-b border-[#EAE4DA] dark:border-[#332E2A] text-xs">
                   <button
                     onClick={() => setActiveTab('specs')}
                     className={`pb-2 px-3 uppercase tracking-wider font-semibold transition-all ${
-                      activeTab === 'specs' ? 'text-[#8C5B32] border-b-2 border-[#B28359]' : 'text-[#78716C] hover:text-[#1C1917]'
+                      activeTab === 'specs' ? 'text-[#8C5B32] dark:text-[#D4AF37] border-b-2 border-[#B28359] dark:border-[#D4AF37]' : 'text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB]'
                     }`}
                   >
                     Specifications
@@ -402,7 +402,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   <button
                     onClick={() => setActiveTab('craft')}
                     className={`pb-2 px-3 uppercase tracking-wider font-semibold transition-all ${
-                      activeTab === 'craft' ? 'text-[#8C5B32] border-b-2 border-[#B28359]' : 'text-[#78716C] hover:text-[#1C1917]'
+                      activeTab === 'craft' ? 'text-[#8C5B32] dark:text-[#D4AF37] border-b-2 border-[#B28359] dark:border-[#D4AF37]' : 'text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB]'
                     }`}
                   >
                     Craftsmanship
@@ -410,22 +410,22 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   <button
                     onClick={() => setActiveTab('delivery')}
                     className={`pb-2 px-3 uppercase tracking-wider font-semibold transition-all ${
-                      activeTab === 'delivery' ? 'text-[#8C5B32] border-b-2 border-[#B28359]' : 'text-[#78716C] hover:text-[#1C1917]'
+                      activeTab === 'delivery' ? 'text-[#8C5B32] dark:text-[#D4AF37] border-b-2 border-[#B28359] dark:border-[#D4AF37]' : 'text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB]'
                     }`}
                   >
                     Delivery & Returns
                   </button>
                 </div>
 
-                <div className="py-3 text-xs text-[#78716C] leading-relaxed">
+                <div className="py-3 text-xs text-[#78716C] dark:text-[#A3998E] leading-relaxed">
                   {activeTab === 'specs' && (
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
-                      <div><strong className="text-[#1C1917]">SKU:</strong> {product.sku}</div>
-                      <div><strong className="text-[#1C1917]">Certification:</strong> {product.certification}</div>
-                      <div><strong className="text-[#1C1917]">Diamond Shape:</strong> {product.diamondShape}</div>
-                      <div><strong className="text-[#1C1917]">Clarity & Color:</strong> {product.clarity} / {product.colorGrade}</div>
-                      <div><strong className="text-[#1C1917]">Band Width:</strong> 1.65mm Comfort Fit</div>
-                      <div><strong className="text-[#1C1917]">Hallmark:</strong> UK Assay Office 750 / 950</div>
+                      <div><strong className="text-[#1C1917] dark:text-[#F5F2EB]">SKU:</strong> {product.sku}</div>
+                      <div><strong className="text-[#1C1917] dark:text-[#F5F2EB]">Certification:</strong> {product.certification}</div>
+                      <div><strong className="text-[#1C1917] dark:text-[#F5F2EB]">Diamond Shape:</strong> {product.diamondShape}</div>
+                      <div><strong className="text-[#1C1917] dark:text-[#F5F2EB]">Clarity & Color:</strong> {product.clarity} / {product.colorGrade}</div>
+                      <div><strong className="text-[#1C1917] dark:text-[#F5F2EB]">Band Width:</strong> 1.65mm Comfort Fit</div>
+                      <div><strong className="text-[#1C1917] dark:text-[#F5F2EB]">Hallmark:</strong> UK Assay Office 750 / 950</div>
                     </div>
                   )}
 
@@ -447,9 +447,9 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             </div>
 
             {/* Product metadata footer */}
-            <div className="pt-2 text-xs text-[#78716C] font-mono flex items-center justify-between border-t border-[#EAE4DA]">
+            <div className="pt-2 text-xs text-[#78716C] dark:text-[#A3998E] font-mono flex items-center justify-between border-t border-[#EAE4DA] dark:border-[#332E2A]">
               <span>Product Ref: /{product.handle}</span>
-              <span className="text-[#57534E]">Vendor: {product.vendor}</span>
+              <span className="text-[#57534E] dark:text-[#A3998E]">Vendor: {product.vendor}</span>
             </div>
 
           </div>

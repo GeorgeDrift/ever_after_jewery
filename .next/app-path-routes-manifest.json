@@ -1,6 +1,7 @@
 {
-  "/page": "/",
   "/_not-found/page": "/_not-found",
+  "/admin/page": "/admin",
+  "/page": "/",
   "/login/page": "/login",
   "/signup/page": "/signup"
 }

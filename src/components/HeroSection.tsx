@@ -153,20 +153,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   };
 
   return (
-    <section className="relative w-full bg-[#E5D7C5] p-3 sm:p-5 md:p-7 lg:p-8 select-none">
+    <section className="relative w-full bg-[#E5D7C5] dark:bg-[#181614] p-3 sm:p-5 md:p-7 lg:p-8 select-none transition-colors">
       
-      {/* 
-        =======================================================================
-        EDITORIAL POSTER CONTAINER
-        Clean studio grey-blue canvas framed inside the warm matte surround
-        =======================================================================
-      */}
-      <div className="relative w-full max-w-[1540px] mx-auto bg-gradient-to-b from-[#EFF1F5] via-[#E8EBF1] to-[#DFE3EB] rounded-2xl md:rounded-[26px] shadow-[0_20px_60px_rgba(0,0,0,0.10)] overflow-hidden border border-[#D5D9E2]">
+      {/* EDITORIAL POSTER CONTAINER */}
+      <div className="relative w-full max-w-[1540px] mx-auto bg-gradient-to-b from-[#EFF1F5] via-[#E8EBF1] to-[#DFE3EB] dark:from-[#1E1B18] dark:via-[#161412] dark:to-[#0E0D0C] rounded-2xl md:rounded-[26px] shadow-[0_20px_60px_rgba(0,0,0,0.10)] overflow-hidden border border-[#D5D9E2] dark:border-[#3A332B] transition-colors">
         
-        {/* Subtle Geometric Linear Circles / Arcs directly matching reference image */}
+        {/* Geometric Linear Circles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
           <svg
-            className="absolute -left-28 top-16 w-[620px] h-[620px] text-[#D0D6E2] opacity-60"
+            className="absolute -left-28 top-16 w-[620px] h-[620px] text-[#D0D6E2] dark:text-[#332E2A] opacity-60 dark:opacity-40"
             viewBox="0 0 600 600"
             fill="none"
           >
@@ -174,7 +169,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <circle cx="200" cy="300" r="420" stroke="currentColor" strokeWidth="1" strokeDasharray="3 7" />
           </svg>
           <svg
-            className="absolute -right-32 top-28 w-[620px] h-[620px] text-[#D0D6E2] opacity-60"
+            className="absolute -right-32 top-28 w-[620px] h-[620px] text-[#D0D6E2] dark:text-[#332E2A] opacity-60 dark:opacity-40"
             viewBox="0 0 600 600"
             fill="none"
           >
@@ -183,19 +178,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </svg>
         </div>
 
-        {/* 
-          =======================================================================
-          TOP EDITORIAL NAVIGATION BAR (Directly matching the screenshot)
-          [ Home ]  Shop  Search  Catalog  About          Profile  Favorites  Cart ❷
-          =======================================================================
-        */}
-        <header className="relative z-30 px-5 sm:px-10 lg:px-14 pt-5 sm:pt-6 pb-2 flex items-center justify-between text-sm sm:text-base text-[#1C1917] font-sans font-semibold tracking-normal">
+        {/* TOP EDITORIAL NAVIGATION BAR */}
+        <header className="relative z-30 px-5 sm:px-10 lg:px-14 pt-5 sm:pt-6 pb-2 flex items-center justify-between text-sm sm:text-base text-[#1C1917] dark:text-[#F5F2EB] font-sans font-semibold tracking-normal">
           
           {/* Left Navigation Tabs */}
           <nav className="flex items-center gap-2 sm:gap-3">
             <button 
               onClick={onGoHome || (() => window.scrollTo({ top: 0, behavior: 'smooth' }))}
-              className="px-4 py-2 rounded-full bg-black text-white font-bold text-xs sm:text-sm tracking-wide shadow-xs transition-all hover:bg-neutral-800"
+              className="px-4 py-2 rounded-full bg-black dark:bg-[#D4AF37] text-white dark:text-[#141210] font-bold text-xs sm:text-sm tracking-wide shadow-xs transition-all hover:bg-neutral-800 dark:hover:bg-[#E8C450]"
             >
               Home
             </button>
@@ -203,17 +193,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Prominent Shop Button */}
             <button 
               onClick={triggerShop}
-              className="px-4 py-2 rounded-full bg-white/90 hover:bg-white border border-[#D5D9E2] text-black font-bold text-xs sm:text-sm tracking-wide transition-all shadow-xs flex items-center gap-1.5 active:scale-95 cursor-pointer"
+              className="px-4 py-2 rounded-full bg-white/90 dark:bg-[#211E1A] hover:bg-white dark:hover:bg-[#2A2520] border border-[#D5D9E2] dark:border-[#3D352E] text-black dark:text-[#F5F2EB] font-bold text-xs sm:text-sm tracking-wide transition-all shadow-xs flex items-center gap-1.5 active:scale-95 cursor-pointer"
               title="Shop all fine rings and diamonds"
             >
               <span>Shop</span>
-              <ArrowUpRight className="w-4 h-4 text-[#B28359]" />
+              <ArrowUpRight className="w-4 h-4 text-[#B28359] dark:text-[#D4AF37]" />
             </button>
 
             {/* Inline Search Bar */}
             {isSearchActive ? (
-              <div className="flex items-center gap-2 bg-white border border-[#CFD5DE] rounded-full px-3.5 py-1.5 shadow-xs animate-in fade-in">
-                <Search className="w-4 h-4 text-[#0284C7]" />
+              <div className="flex items-center gap-2 bg-white dark:bg-[#211E1A] border border-[#CFD5DE] dark:border-[#3D352E] rounded-full px-3.5 py-1.5 shadow-xs animate-in fade-in">
+                <Search className="w-4 h-4 text-[#0284C7] dark:text-[#38BDF8]" />
                 <input
                   type="text"
                   placeholder="Search rings..."
@@ -225,14 +215,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     }
                   }}
                   autoFocus
-                  className="bg-transparent text-xs sm:text-sm text-black focus:outline-none w-32 sm:w-48 placeholder-[#9CA3AF]"
+                  className="bg-transparent text-xs sm:text-sm text-black dark:text-[#F5F2EB] focus:outline-none w-32 sm:w-48 placeholder-[#9CA3AF]"
                 />
                 <button
                   onClick={() => {
                     setIsSearchActive(false);
                     onSearchChange?.('');
                   }}
-                  className="text-[#9CA3AF] hover:text-black text-xs"
+                  className="text-[#9CA3AF] hover:text-black dark:hover:text-white text-xs"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -240,7 +230,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             ) : (
               <button 
                 onClick={() => setIsSearchActive(true)}
-                className="px-3.5 py-2 rounded-full hover:bg-white/80 text-[#4B5563] hover:text-black font-semibold text-xs sm:text-sm transition-all"
+                className="px-3.5 py-2 rounded-full hover:bg-white/80 dark:hover:bg-[#211E1A] text-[#4B5563] dark:text-[#D4CEC4] hover:text-black dark:hover:text-white font-semibold text-xs sm:text-sm transition-all"
               >
                 Search
               </button>
@@ -248,14 +238,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
             <button 
               onClick={triggerShop}
-              className="px-3.5 py-2 rounded-full hover:bg-white/80 text-[#4B5563] hover:text-black font-semibold text-xs sm:text-sm transition-all"
+              className="px-3.5 py-2 rounded-full hover:bg-white/80 dark:hover:bg-[#211E1A] text-[#4B5563] dark:text-[#D4CEC4] hover:text-black dark:hover:text-white font-semibold text-xs sm:text-sm transition-all"
             >
               Catalog
             </button>
 
             <button 
               onClick={onBespokeClick}
-              className="px-3.5 py-2 rounded-full hover:bg-white/80 text-[#4B5563] hover:text-black font-semibold text-xs sm:text-sm transition-all"
+              className="px-3.5 py-2 rounded-full hover:bg-white/80 dark:hover:bg-[#211E1A] text-[#4B5563] dark:text-[#D4CEC4] hover:text-black dark:hover:text-white font-semibold text-xs sm:text-sm transition-all"
             >
               About
             </button>
@@ -263,9 +253,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {onOpenDiamondGuide && (
               <button
                 onClick={onOpenDiamondGuide}
-                className="px-3.5 py-2 rounded-full hover:bg-white/80 text-[#4B5563] hover:text-[#0284C7] font-semibold text-xs sm:text-sm transition-all hidden md:inline-flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-full hover:bg-white/80 dark:hover:bg-[#211E1A] text-[#4B5563] dark:text-[#D4CEC4] hover:text-[#0284C7] dark:hover:text-[#38BDF8] font-semibold text-xs sm:text-sm transition-all hidden md:inline-flex items-center gap-1.5"
               >
-                <Sparkles className="w-4 h-4 text-[#0284C7]" />
+                <Sparkles className="w-4 h-4 text-[#0284C7] dark:text-[#38BDF8]" />
                 <span>4Cs Guide</span>
               </button>
             )}
@@ -275,7 +265,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <div className="flex items-center gap-2 sm:gap-3">
             <button 
               onClick={onOpenAuth || onBespokeClick}
-              className="px-3.5 py-2 rounded-full hover:bg-white/80 text-[#4B5563] hover:text-black font-semibold text-xs sm:text-sm transition-all hidden sm:inline"
+              className="px-3.5 py-2 rounded-full hover:bg-white/80 dark:hover:bg-[#211E1A] text-[#4B5563] dark:text-[#D4CEC4] hover:text-black dark:hover:text-white font-semibold text-xs sm:text-sm transition-all hidden sm:inline"
               title="Sign In / Client Profile"
             >
               Sign In
@@ -284,51 +274,41 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Cart Button */}
             <button 
               onClick={onOpenCart}
-              className="px-4 py-2 rounded-full bg-white/90 hover:bg-white border border-[#D5D9E2] text-black font-bold text-xs sm:text-sm tracking-wide transition-all shadow-xs flex items-center gap-2 active:scale-95"
+              className="px-4 py-2 rounded-full bg-white/90 dark:bg-[#211E1A] hover:bg-white dark:hover:bg-[#2A2520] border border-[#D5D9E2] dark:border-[#3D352E] text-black dark:text-[#F5F2EB] font-bold text-xs sm:text-sm tracking-wide transition-all shadow-xs flex items-center gap-2 active:scale-95"
             >
               <span>Cart</span>
-              <span className="w-5 h-5 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center leading-none">
+              <span className="w-5 h-5 rounded-full bg-black dark:bg-[#D4AF37] text-white dark:text-[#141210] text-xs font-bold flex items-center justify-center leading-none">
                 {cartCount > 0 ? cartCount : 2}
               </span>
             </button>
           </div>
         </header>
 
-        {/* 
-          =======================================================================
-          MAIN EDITORIAL STAGE (Typography, Model, Copy, and Bottom Floating Cards)
-          =======================================================================
-        */}
+        {/* MAIN EDITORIAL STAGE */}
         <div className="relative min-h-[560px] sm:min-h-[660px] md:min-h-[740px] lg:min-h-[820px] flex flex-col justify-between px-5 sm:px-10 lg:px-14 pt-2 pb-8 sm:pb-12">
           
-          {/* 
-            PROMINENT BRAND HEADLINE: "EVER AFTER DIAMONDS"
-            Elevated at the top with crystal-clear visibility and zero image overlap
-          */}
+          {/* PROMINENT BRAND HEADLINE */}
           <div className="relative z-30 pt-4 sm:pt-6 pb-2 text-center pointer-events-none">
-            <h1 className="font-serif-luxury text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[0.16em] text-[#1C1917] uppercase leading-none drop-shadow-xs">
+            <h1 className="font-serif-luxury text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[0.16em] text-[#1C1917] dark:text-[#F5F2EB] uppercase leading-none drop-shadow-xs">
               EVER AFTER
             </h1>
-            <div className="flex items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm md:text-base font-bold tracking-[0.28em] text-[#8C5B32] uppercase mt-3">
+            <div className="flex items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm md:text-base font-bold tracking-[0.28em] text-[#8C5B32] dark:text-[#D4AF37] uppercase mt-3">
               <span>BESPOKE FINE DIAMOND JEWELLERS</span>
-              <span className="text-[#D3CBC0]">•</span>
+              <span className="text-[#D3CBC0] dark:text-[#574628]">•</span>
               <span>LONDON</span>
             </div>
           </div>
 
-          {/* 
-            EDITORIAL COPY CARDS (High contrast, crystal clear readability)
-            Left: Atelier Manifesto Quote | Right: Established Tag
-          */}
+          {/* EDITORIAL COPY CARDS */}
           <div className="relative z-30 grid grid-cols-1 md:grid-cols-12 gap-4 mt-3 sm:mt-5 pointer-events-none">
             {/* Left Manifesto Card */}
             <div className="md:col-span-6 lg:col-span-5 text-left pointer-events-auto">
-              <div className="bg-white/95 backdrop-blur-md border border-[#D5D9E2] rounded-2xl p-5 sm:p-6 shadow-[0_8px_24px_rgba(0,0,0,0.06)] space-y-2 max-w-lg">
-                <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#8C5B32] uppercase tracking-wider">
-                  <Sparkles className="w-4 h-4 text-[#B28359]" />
+              <div className="bg-white/95 dark:bg-[#181614]/95 backdrop-blur-md border border-[#D5D9E2] dark:border-[#3D352E] rounded-2xl p-5 sm:p-6 shadow-[0_8px_24px_rgba(0,0,0,0.06)] space-y-2 max-w-lg">
+                <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#8C5B32] dark:text-[#D4AF37] uppercase tracking-wider">
+                  <Sparkles className="w-4 h-4 text-[#B28359] dark:text-[#D4AF37]" />
                   <span>Atelier Philosophy</span>
                 </div>
-                <p className="text-sm sm:text-base leading-relaxed text-[#1C1917] font-semibold">
+                <p className="text-sm sm:text-base leading-relaxed text-[#1C1917] dark:text-[#F5F2EB] font-semibold">
                   {HERO_CONFIG.manifesto}
                 </p>
               </div>
@@ -338,8 +318,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* Right Established Tag Card */}
             <div className="hidden md:flex md:col-span-5 lg:col-span-5 justify-end items-start text-right pointer-events-auto">
-              <div className="bg-white/95 backdrop-blur-md border border-[#D5D9E2] rounded-2xl px-5 py-3.5 shadow-[0_8px_24px_rgba(0,0,0,0.06)] text-xs sm:text-sm text-[#57534E] font-semibold tracking-wide">
-                <span className="text-[#8C5B32] font-bold block uppercase text-xs tracking-wider mb-0.5">Established Heritage</span>
+              <div className="bg-white/95 dark:bg-[#181614]/95 backdrop-blur-md border border-[#D5D9E2] dark:border-[#3D352E] rounded-2xl px-5 py-3.5 shadow-[0_8px_24px_rgba(0,0,0,0.06)] text-xs sm:text-sm text-[#57534E] dark:text-[#D4CEC4] font-semibold tracking-wide">
+                <span className="text-[#8C5B32] dark:text-[#D4AF37] font-bold block uppercase text-xs tracking-wider mb-0.5">Established Heritage</span>
                 <span>{HERO_CONFIG.sinceTag} • London Atelier</span>
               </div>
             </div>
@@ -377,19 +357,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <div className="md:col-span-4 lg:col-span-4">
                 <div 
                   onClick={onExploreClick}
-                  className="bg-white rounded-2xl p-4 sm:p-5 shadow-[0_12px_32px_rgba(0,0,0,0.08)] border border-[#E3E6EC] transition-all hover:shadow-xl cursor-pointer group"
+                  className="bg-white dark:bg-[#181614] rounded-2xl p-4 sm:p-5 shadow-[0_12px_32px_rgba(0,0,0,0.08)] border border-[#E3E6EC] dark:border-[#3D352E] transition-all hover:shadow-xl cursor-pointer group"
                 >
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-bold text-black tracking-tight">
+                    <span className="text-sm font-bold text-black dark:text-[#F5F2EB] tracking-tight">
                       {collectionLooks[collectionIndex].title}
                     </span>
-                    <span className="text-xs font-semibold text-[#6B7280]">
+                    <span className="text-xs font-semibold text-[#6B7280] dark:text-[#A3998E]">
                       [{collectionLooks[collectionIndex].year}]
                     </span>
                   </div>
 
                   {/* Large Focus Thumbnail Image */}
-                  <div className="relative h-48 sm:h-56 md:h-64 rounded-xl overflow-hidden bg-[#F3F4F6] mb-3 border border-[#F0ECE4]">
+                  <div className="relative h-48 sm:h-56 md:h-64 rounded-xl overflow-hidden bg-[#F3F4F6] dark:bg-[#211E1A] mb-3 border border-[#F0ECE4] dark:border-[#2D2720]">
                     <img
                       src={collectionLooks[collectionIndex].image}
                       alt="Collection look preview"
@@ -399,10 +379,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                   {/* Controls */}
                   <div 
-                    className="flex items-center justify-between pt-2 border-t border-[#F1F3F6]"
+                    className="flex items-center justify-between pt-2 border-t border-[#F1F3F6] dark:border-[#2D2720]"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <span className="text-xs text-[#B28359] font-bold">◆ {collectionLooks[collectionIndex].subtitle}</span>
+                    <span className="text-xs text-[#B28359] dark:text-[#D4AF37] font-bold">◆ {collectionLooks[collectionIndex].subtitle}</span>
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() =>
@@ -410,7 +390,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                             prev === 0 ? collectionLooks.length - 1 : prev - 1
                           )
                         }
-                        className="p-1.5 rounded-full bg-[#FAF9F6] border border-[#E5DFD5] text-[#6B7280] hover:text-black transition-colors"
+                        className="p-1.5 rounded-full bg-[#FAF9F6] dark:bg-[#24201D] border border-[#E5DFD5] dark:border-[#3D352E] text-[#6B7280] dark:text-[#D4CEC4] hover:text-black dark:hover:text-white transition-colors"
                         aria-label="Previous look"
                       >
                         <ChevronLeft className="w-4 h-4" />
@@ -419,7 +399,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                         onClick={() =>
                           setCollectionIndex((prev) => (prev + 1) % collectionLooks.length)
                         }
-                        className="p-1.5 rounded-full bg-[#FAF9F6] border border-[#E5DFD5] text-[#6B7280] hover:text-black transition-colors"
+                        className="p-1.5 rounded-full bg-[#FAF9F6] dark:bg-[#24201D] border border-[#E5DFD5] dark:border-[#3D352E] text-[#6B7280] dark:text-[#D4CEC4] hover:text-black dark:hover:text-white transition-colors"
                         aria-label="Next look"
                       >
                         <ChevronRight className="w-4 h-4" />
@@ -433,19 +413,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <div className="md:col-span-4 lg:col-span-4">
                 <div 
                   onClick={onExploreClick}
-                  className="bg-white rounded-2xl p-4 sm:p-5 shadow-[0_12px_32px_rgba(0,0,0,0.08)] border border-[#E3E6EC] transition-all hover:shadow-xl cursor-pointer group"
+                  className="bg-white dark:bg-[#181614] rounded-2xl p-4 sm:p-5 shadow-[0_12px_32px_rgba(0,0,0,0.08)] border border-[#E3E6EC] dark:border-[#3D352E] transition-all hover:shadow-xl cursor-pointer group"
                 >
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-bold text-black tracking-tight">
+                    <span className="text-sm font-bold text-black dark:text-[#F5F2EB] tracking-tight">
                       {adventRings[adventIndex].name}
                     </span>
-                    <span className="text-xs font-semibold text-[#6B7280]">
+                    <span className="text-xs font-semibold text-[#6B7280] dark:text-[#A3998E]">
                       [{adventRings[adventIndex].year}]
                     </span>
                   </div>
 
                   {/* Large Focus Ring Preview */}
-                  <div className="relative h-48 sm:h-56 md:h-64 rounded-xl overflow-hidden bg-[#FAF9F5] flex items-center justify-center p-3 mb-3 border border-[#F0ECE4]">
+                  <div className="relative h-48 sm:h-56 md:h-64 rounded-xl overflow-hidden bg-[#FAF9F5] dark:bg-[#211E1A] flex items-center justify-center p-3 mb-3 border border-[#F0ECE4] dark:border-[#2D2720]">
                     <img
                       src={adventRings[adventIndex].image}
                       alt="Advent diamond ring"
@@ -455,14 +435,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                   {/* Pagination Dots & Navigation */}
                   <div 
-                    className="flex items-center justify-between pt-2 border-t border-[#F1F3F6]"
+                    className="flex items-center justify-between pt-2 border-t border-[#F1F3F6] dark:border-[#2D2720]"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <div className="flex items-center gap-1.5 text-xs text-[#9CA3AF]">
                       {adventRings.map((_, idx) => (
                         <span 
                           key={idx} 
-                          className={idx === adventIndex ? 'text-[#B28359] font-bold' : 'text-[#D1D5DB]'}
+                          className={idx === adventIndex ? 'text-[#B28359] dark:text-[#D4AF37] font-bold' : 'text-[#D1D5DB] dark:text-[#42392F]'}
                         >
                           {idx === adventIndex ? '◆' : '◇'}
                         </span>
@@ -476,7 +456,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                             prev === 0 ? adventRings.length - 1 : prev - 1
                           )
                         }
-                        className="p-1.5 rounded-full bg-[#FAF9F6] border border-[#E5DFD5] text-[#6B7280] hover:text-black transition-colors"
+                        className="p-1.5 rounded-full bg-[#FAF9F6] dark:bg-[#24201D] border border-[#E5DFD5] dark:border-[#3D352E] text-[#6B7280] dark:text-[#D4CEC4] hover:text-black dark:hover:text-white transition-colors"
                         aria-label="Previous ring"
                       >
                         <ChevronLeft className="w-4 h-4" />
@@ -485,7 +465,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                         onClick={() =>
                           setAdventIndex((prev) => (prev + 1) % adventRings.length)
                         }
-                        className="p-1.5 rounded-full bg-[#FAF9F6] border border-[#E5DFD5] text-[#6B7280] hover:text-black transition-colors"
+                        className="p-1.5 rounded-full bg-[#FAF9F6] dark:bg-[#24201D] border border-[#E5DFD5] dark:border-[#3D352E] text-[#6B7280] dark:text-[#D4CEC4] hover:text-black dark:hover:text-white transition-colors"
                         aria-label="Next ring"
                       >
                         <ChevronRight className="w-4 h-4" />
@@ -499,19 +479,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <div className="md:col-span-4 lg:col-span-4">
                 <div 
                   onClick={handleOpenQuiltedRing}
-                  className="bg-white rounded-2xl p-4 sm:p-5 shadow-[0_12px_32px_rgba(0,0,0,0.08)] border border-[#E3E6EC] transition-all hover:shadow-xl cursor-pointer group"
+                  className="bg-white dark:bg-[#181614] rounded-2xl p-4 sm:p-5 shadow-[0_12px_32px_rgba(0,0,0,0.08)] border border-[#E3E6EC] dark:border-[#3D352E] transition-all hover:shadow-xl cursor-pointer group"
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm font-bold text-black tracking-tight">
+                    <span className="text-sm font-bold text-black dark:text-[#F5F2EB] tracking-tight">
                       {HERO_CONFIG.quiltedRingCard.title}
                     </span>
                   </div>
-                  <div className="text-xs font-medium text-[#6B7280] mb-3">
+                  <div className="text-xs font-medium text-[#6B7280] dark:text-[#A3998E] mb-3">
                     {HERO_CONFIG.quiltedRingCard.subtitle}
                   </div>
 
                   {/* Large Focus Ring Cutout Image */}
-                  <div className="relative h-48 sm:h-56 md:h-64 rounded-xl overflow-hidden bg-[#FAF9F5] flex items-center justify-center p-3 mb-3 border border-[#F0ECE4]">
+                  <div className="relative h-48 sm:h-56 md:h-64 rounded-xl overflow-hidden bg-[#FAF9F5] dark:bg-[#211E1A] flex items-center justify-center p-3 mb-3 border border-[#F0ECE4] dark:border-[#2D2720]">
                     <img
                       src={HERO_CONFIG.quiltedRingCard.image}
                       alt="The Ever After Quilted Band 18K yellow gold"
@@ -520,12 +500,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   </div>
 
                   {/* Price & Solid Black Square CTA */}
-                  <div className="flex items-end justify-between pt-2 border-t border-[#F1F3F6]">
+                  <div className="flex items-end justify-between pt-2 border-t border-[#F1F3F6] dark:border-[#2D2720]">
                     <div>
                       <span className="text-[10px] text-[#9CA3AF] uppercase tracking-wider block font-medium">
                         From
                       </span>
-                      <span className="font-sans text-base sm:text-lg font-bold text-[#B28359] tracking-tight">
+                      <span className="font-sans text-base sm:text-lg font-bold text-[#B28359] dark:text-[#D4AF37] tracking-tight">
                         {HERO_CONFIG.quiltedRingCard.price}
                       </span>
                     </div>
@@ -535,7 +515,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                         e.stopPropagation();
                         handleOpenQuiltedRing();
                       }}
-                      className="w-10 h-10 rounded-xl bg-black hover:bg-neutral-800 text-white flex items-center justify-center transition-transform active:scale-95 shadow-sm"
+                      className="w-10 h-10 rounded-xl bg-black dark:bg-[#D4AF37] hover:bg-neutral-800 dark:hover:bg-[#E8C450] text-white dark:text-[#141210] flex items-center justify-center transition-transform active:scale-95 shadow-sm"
                       aria-label="View ring details"
                     >
                       <ArrowUpRight className="w-5 h-5" />
@@ -550,7 +530,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <div className="flex justify-center pt-8 pb-4">
               <button
                 onClick={triggerShop}
-                className="group flex items-center gap-3 px-8 sm:px-10 py-4 sm:py-4.5 rounded-full bg-black hover:bg-[#1C1917] text-white text-xs sm:text-sm tracking-[0.2em] uppercase font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+                className="group flex items-center gap-3 px-8 sm:px-10 py-4 sm:py-4.5 rounded-full bg-black dark:bg-[#D4AF37] hover:bg-[#1C1917] dark:hover:bg-[#E8C450] text-white dark:text-[#141210] text-xs sm:text-sm tracking-[0.2em] uppercase font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
               >
                 <span>Enter Storefront & Jewellery Catalog</span>
                 <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
