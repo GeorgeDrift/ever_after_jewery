@@ -66,6 +66,7 @@ interface HeroSectionProps {
   onOpenCart?: () => void;
   onOpenAddProduct?: () => void;
   onOpenShopifyExport?: () => void;
+  onOpenAuth?: () => void;
   cartCount?: number;
   onSelectProduct?: (product: Product) => void;
   products?: Product[];
@@ -80,6 +81,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onBespokeClick,
   onOpenDiamondGuide,
   onOpenCart,
+  onOpenAuth,
   cartCount = 2,
   onSelectProduct,
   products = [],
@@ -272,10 +274,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           {/* Right Navigation Items */}
           <div className="flex items-center gap-2 sm:gap-3">
             <button 
-              onClick={onBespokeClick}
+              onClick={onOpenAuth || onBespokeClick}
               className="px-3.5 py-2 rounded-full hover:bg-white/80 text-[#4B5563] hover:text-black font-semibold text-xs sm:text-sm transition-all hidden sm:inline"
+              title="Sign In / Client Profile"
             >
-              Profile
+              Sign In
             </button>
             
             {/* Cart Button */}

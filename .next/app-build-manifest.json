@@ -1,15 +1,46 @@
 {
   "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-4772d34723bd25e0.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-37e0f0325134c4d7.js",
+      "static/chunks/main-app-51a6fa63bf2998f5.js",
+      "static/chunks/app/_not-found/page-95780439ddbc615c.js"
+    ],
     "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
+      "static/chunks/webpack-4772d34723bd25e0.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-37e0f0325134c4d7.js",
+      "static/chunks/main-app-51a6fa63bf2998f5.js",
+      "static/css/d0d8cd615ad41307.css",
+      "static/chunks/app/layout-8df45d8e95ffb7ca.js"
     ],
     "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+      "static/chunks/webpack-4772d34723bd25e0.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-37e0f0325134c4d7.js",
+      "static/chunks/main-app-51a6fa63bf2998f5.js",
+      "static/chunks/811-ac960cda208ca85f.js",
+      "static/chunks/317-162e6daf2d9a6754.js",
+      "static/chunks/app/page-6a1e640251ecac79.js"
+    ],
+    "/login/page": [
+      "static/chunks/webpack-4772d34723bd25e0.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-37e0f0325134c4d7.js",
+      "static/chunks/main-app-51a6fa63bf2998f5.js",
+      "static/chunks/811-ac960cda208ca85f.js",
+      "static/chunks/317-162e6daf2d9a6754.js",
+      "static/chunks/app/login/page-834dbf70427e39b5.js"
+    ],
+    "/signup/page": [
+      "static/chunks/webpack-4772d34723bd25e0.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-37e0f0325134c4d7.js",
+      "static/chunks/main-app-51a6fa63bf2998f5.js",
+      "static/chunks/811-ac960cda208ca85f.js",
+      "static/chunks/317-162e6daf2d9a6754.js",
+      "static/chunks/app/signup/page-834dbf70427e39b5.js"
     ]
   }
 }

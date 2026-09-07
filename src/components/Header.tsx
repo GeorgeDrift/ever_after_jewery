@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 import { 
   ShoppingBag, 
   Search, 
@@ -15,7 +16,8 @@ import {
   Mail,
   Home,
   ChevronDown,
-  SlidersHorizontal
+  SlidersHorizontal,
+  User
 } from 'lucide-react';
 import profileBadgeImg from '../assets/images/ead_profile_badge_1788549227010.jpg';
 
@@ -31,6 +33,7 @@ interface HeaderProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
   onGoHome?: () => void;
+  onOpenAuth?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -42,7 +45,8 @@ export const Header: React.FC<HeaderProps> = ({
   onSelectCategory,
   searchQuery,
   onSearchChange,
-  onGoHome
+  onGoHome,
+  onOpenAuth
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -225,6 +229,32 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </div>
 
+          {/* Sign In / Private Client Portal Account Button */}
+          {onOpenAuth ? (
+            <button
+              id="auth-modal-btn"
+              onClick={onOpenAuth}
+              className="p-2 text-[#57534E] hover:text-[#B28359] transition-colors rounded-full hover:bg-[#F5F2EB] flex items-center gap-1.5"
+              title="Sign In / Private Client Account"
+            >
+              <User className="w-4 h-4 text-[#B28359]" />
+              <span className="hidden xl:inline text-xs font-semibold uppercase tracking-wider text-[#1C1917]">
+                Sign In
+              </span>
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className="p-2 text-[#57534E] hover:text-[#B28359] transition-colors rounded-full hover:bg-[#F5F2EB] flex items-center gap-1.5"
+              title="Sign In / Private Client Account"
+            >
+              <User className="w-4 h-4 text-[#B28359]" />
+              <span className="hidden xl:inline text-xs font-semibold uppercase tracking-wider text-[#1C1917]">
+                Sign In
+              </span>
+            </Link>
+          )}
+
           {/* Book Consultation / Viewing Button */}
           <button
             id="book-consultation-btn"
@@ -290,6 +320,28 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           <div className="pt-3 border-t border-[#ECE6DB] space-y-2">
+            {onOpenAuth ? (
+              <button
+                onClick={() => {
+                  onOpenAuth();
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full text-left px-3 py-2 text-xs uppercase tracking-wider text-[#1C1917] font-semibold hover:text-[#B28359] flex items-center gap-2 border border-[#E5DFD5] rounded-xl bg-[#FAF9F5]"
+              >
+                <User className="w-4 h-4 text-[#B28359]" />
+                <span>Sign In / Create Account</span>
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full text-left px-3 py-2 text-xs uppercase tracking-wider text-[#1C1917] font-semibold hover:text-[#B28359] flex items-center gap-2 border border-[#E5DFD5] rounded-xl bg-[#FAF9F5]"
+              >
+                <User className="w-4 h-4 text-[#B28359]" />
+                <span>Sign In / Create Account</span>
+              </Link>
+            )}
+
             <button
               onClick={() => {
                 onOpenDiamondGuide();

@@ -13,6 +13,7 @@ import { CartDrawer } from '@/components/CartDrawer';
 import { CheckoutModal } from '@/components/CheckoutModal';
 import { BespokeInquiryModal } from '@/components/BespokeInquiryModal';
 import { DiamondGuideModal } from '@/components/DiamondGuideModal';
+import { AuthModal } from '@/components/AuthModal';
 import { Footer } from '@/components/Footer';
 
 export default function StorefrontPage() {
@@ -70,6 +71,7 @@ export default function StorefrontPage() {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [isDiamondGuideOpen, setIsDiamondGuideOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Navigation View: 'home' (Home Image Editorial Poster) vs 'shop' (Ever After Storefront & Catalog)
@@ -219,6 +221,7 @@ export default function StorefrontPage() {
             onOpenAddProduct={() => setIsAddProductOpen(true)}
             onOpenCart={() => setIsCartOpen(true)}
             onOpenShopifyExport={() => setIsShopifyExportOpen(true)}
+            onOpenAuth={() => setIsAuthOpen(true)}
             cartCount={cart.reduce((s, i) => s + i.quantity, 0)}
             onSelectProduct={(p) => {
               navigateToShop();
@@ -239,6 +242,7 @@ export default function StorefrontPage() {
                 onOpenCart={() => setIsCartOpen(true)}
                 onOpenConsultation={() => setIsConsultationOpen(true)}
                 onOpenDiamondGuide={() => setIsDiamondGuideOpen(true)}
+                onOpenAuth={() => setIsAuthOpen(true)}
                 selectedCategory={filterState.category}
                 onSelectCategory={(cat) => {
                   setFilterState((prev) => ({ ...prev, category: cat }));
@@ -355,6 +359,11 @@ export default function StorefrontPage() {
       <DiamondGuideModal
         isOpen={isDiamondGuideOpen}
         onClose={() => setIsDiamondGuideOpen(false)}
+      />
+
+      <AuthModal
+        isOpen={isAuthOpen}
+        onClose={() => setIsAuthOpen(false)}
       />
     </div>
   );
