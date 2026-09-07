@@ -183,7 +183,7 @@ export const AuthCard: React.FC<AuthCardProps> = ({
   };
 
   return (
-    <div className={`w-full bg-white rounded-3xl border border-[#E8E2D7] shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 ${isModal ? 'max-w-4xl mx-auto' : 'max-w-5xl mx-auto'}`}>
+    <div className={`w-full bg-white dark:bg-[#181614] rounded-3xl border border-[#E8E2D7] dark:border-[#3A332B] shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 ${isModal ? 'max-w-4xl mx-auto' : 'max-w-5xl mx-auto'}`}>
       
       {/* LEFT COLUMN: Luxury Atelier Visual Banner (Hidden on smallest screens, visible on lg) */}
       <div className="lg:col-span-5 relative bg-[#1C1917] text-white p-8 lg:p-10 flex flex-col justify-between overflow-hidden min-h-[380px] lg:min-h-[640px]">
@@ -273,20 +273,20 @@ export const AuthCard: React.FC<AuthCardProps> = ({
       </div>
 
       {/* RIGHT COLUMN: Interactive Form */}
-      <div className="lg:col-span-7 p-6 sm:p-8 lg:p-10 flex flex-col justify-between bg-[#FAF9F5]/50">
+      <div className="lg:col-span-7 p-6 sm:p-8 lg:p-10 flex flex-col justify-between bg-[#FAF9F5]/50 dark:bg-[#181614]">
         
         {/* Top Header & Tab Switcher */}
         <div>
           <div className="flex items-center justify-between gap-4 mb-6">
             <div>
-              <h3 className="font-serif-luxury text-2xl sm:text-3xl text-[#1C1917] font-semibold">
+              <h3 className="font-serif-luxury text-2xl sm:text-3xl text-[#1C1917] dark:text-[#F5F2EB] font-semibold">
                 {isForgotView 
                   ? 'Reset Atelier Password' 
                   : mode === 'login' 
                     ? 'Sign In to Your Account' 
                     : 'Create Client Account'}
               </h3>
-              <p className="text-xs sm:text-sm text-[#78716C] mt-1">
+              <p className="text-xs sm:text-sm text-[#78716C] dark:text-[#A3998E] mt-1">
                 {isForgotView
                   ? 'Enter your registered email to receive a secure login reset token.'
                   : mode === 'login' 
@@ -298,17 +298,17 @@ export const AuthCard: React.FC<AuthCardProps> = ({
 
           {/* Mode Switch Tabs (Sign In / Create Account) */}
           {!isForgotView && (
-            <div className="grid grid-cols-2 p-1 bg-[#EFECE6] rounded-2xl mb-6 border border-[#E3DDD1]">
+            <div className="grid grid-cols-2 p-1 bg-[#EFECE6] dark:bg-[#24201D] rounded-2xl mb-6 border border-[#E3DDD1] dark:border-[#3D352E]">
               <button
                 type="button"
                 onClick={() => handleModeSwitch('login')}
                 className={`py-2.5 px-4 text-xs sm:text-sm font-semibold rounded-xl transition-all duration-200 uppercase tracking-wider flex items-center justify-center gap-2 ${
                   mode === 'login'
-                    ? 'bg-white text-[#1C1917] shadow-sm border border-[#E0D8CB]'
-                    : 'text-[#78716C] hover:text-[#1C1917]'
+                    ? 'bg-white dark:bg-[#342D26] text-[#1C1917] dark:text-[#F5F2EB] shadow-sm border border-[#E0D8CB] dark:border-[#52463A]'
+                    : 'text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-white'
                 }`}
               >
-                <User className="w-4 h-4 text-[#B28359]" />
+                <User className="w-4 h-4 text-[#B28359] dark:text-[#D4AF37]" />
                 <span>Sign In</span>
               </button>
 
@@ -317,11 +317,11 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                 onClick={() => handleModeSwitch('signup')}
                 className={`py-2.5 px-4 text-xs sm:text-sm font-semibold rounded-xl transition-all duration-200 uppercase tracking-wider flex items-center justify-center gap-2 ${
                   mode === 'signup'
-                    ? 'bg-white text-[#1C1917] shadow-sm border border-[#E0D8CB]'
-                    : 'text-[#78716C] hover:text-[#1C1917]'
+                    ? 'bg-white dark:bg-[#342D26] text-[#1C1917] dark:text-[#F5F2EB] shadow-sm border border-[#E0D8CB] dark:border-[#52463A]'
+                    : 'text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-white'
                 }`}
               >
-                <Sparkles className="w-4 h-4 text-[#B28359]" />
+                <Sparkles className="w-4 h-4 text-[#B28359] dark:text-[#D4AF37]" />
                 <span>Create Account</span>
               </button>
             </div>
@@ -329,15 +329,15 @@ export const AuthCard: React.FC<AuthCardProps> = ({
 
           {/* Alert Error / Success Messages */}
           {errorMsg && (
-            <div className="mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm flex items-start gap-2.5 animate-in fade-in duration-200">
-              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+            <div className="mb-5 p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300 text-xs sm:text-sm flex items-start gap-2.5 animate-in fade-in duration-200">
+              <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
               <span>{errorMsg}</span>
             </div>
           )}
 
           {successMsg && (
-            <div className="mb-5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm flex items-start gap-2.5 animate-in fade-in duration-200">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+            <div className="mb-5 p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs sm:text-sm flex items-start gap-2.5 animate-in fade-in duration-200">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
               <span>{successMsg}</span>
             </div>
           )}
@@ -349,7 +349,7 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                 <button
                   type="button"
                   onClick={() => handleSocialAuth('Google')}
-                  className="w-full py-2.5 px-4 rounded-xl border border-[#E2DDD3] bg-white hover:bg-[#F9F7F3] text-[#334155] text-xs font-semibold flex items-center justify-center gap-2.5 transition-all shadow-xs"
+                  className="w-full py-2.5 px-4 rounded-xl border border-[#E2DDD3] dark:border-[#3D352E] bg-white dark:bg-[#211E1A] hover:bg-[#F9F7F3] dark:hover:bg-[#2A2520] text-[#334155] dark:text-[#E2E8F0] text-xs font-semibold flex items-center justify-center gap-2.5 transition-all shadow-xs"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -363,9 +363,9 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                 <button
                   type="button"
                   onClick={() => handleSocialAuth('Apple')}
-                  className="w-full py-2.5 px-4 rounded-xl border border-[#E2DDD3] bg-white hover:bg-[#F9F7F3] text-[#334155] text-xs font-semibold flex items-center justify-center gap-2.5 transition-all shadow-xs"
+                  className="w-full py-2.5 px-4 rounded-xl border border-[#E2DDD3] dark:border-[#3D352E] bg-white dark:bg-[#211E1A] hover:bg-[#F9F7F3] dark:hover:bg-[#2A2520] text-[#334155] dark:text-[#E2E8F0] text-xs font-semibold flex items-center justify-center gap-2.5 transition-all shadow-xs"
                 >
-                  <svg className="w-4 h-4 fill-current text-[#1C1917]" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 fill-current text-[#1C1917] dark:text-[#F5F2EB]" viewBox="0 0 24 24">
                     <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.32c.62-.75 1.04-1.8 .92-2.85-.9.04-2 .6-2.63 1.34-.56.65-1.05 1.72-.92 2.74 1.01.08 2.01-.48 2.63-1.23z" />
                   </svg>
                   <span>Apple ID</span>
@@ -373,11 +373,11 @@ export const AuthCard: React.FC<AuthCardProps> = ({
               </div>
 
               <div className="relative flex items-center justify-center my-4">
-                <div className="border-t border-[#E5DFD5] w-full" />
-                <span className="bg-[#FAF9F5] px-3 text-[11px] uppercase tracking-wider text-[#A8A29E] shrink-0 font-medium">
+                <div className="border-t border-[#E5DFD5] dark:border-[#332E2A] w-full" />
+                <span className="bg-[#FAF9F5] dark:bg-[#181614] px-3 text-[11px] uppercase tracking-wider text-[#A8A29E] dark:text-[#78716C] shrink-0 font-medium">
                   Or continue with email
                 </span>
-                <div className="border-t border-[#E5DFD5] w-full" />
+                <div className="border-t border-[#E5DFD5] dark:border-[#332E2A] w-full" />
               </div>
             </div>
           )}
@@ -566,18 +566,18 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                 {/* SIGNUP: Preferred Client Tier */}
                 {mode === 'signup' && (
                   <div>
-                    <label className="block text-xs uppercase tracking-wider font-semibold text-[#57534E] mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider font-semibold text-[#57534E] dark:text-[#D4CEC4] mb-1.5">
                       Primary Jewellery Interest
                     </label>
                     <select
                       value={clientTier}
                       onChange={(e) => setClientTier(e.target.value)}
-                      className="auth-input bg-white"
+                      className="auth-input bg-white dark:bg-[#211E1A] dark:text-[#F5F2EB] dark:border-[#3A332B]"
                     >
-                      <option value="Bespoke Bridal">Bespoke Bridal & Engagement Rings</option>
-                      <option value="Fine Collector">Fine Diamond Collector & High Jewellery</option>
-                      <option value="Anniversary">Anniversary & Custom Remodeling</option>
-                      <option value="Daily Luxury">Daily Fine Jewellery & Gifts</option>
+                      <option value="Bespoke Bridal" className="dark:bg-[#211E1A] dark:text-[#F5F2EB]">Bespoke Bridal & Engagement Rings</option>
+                      <option value="Fine Collector" className="dark:bg-[#211E1A] dark:text-[#F5F2EB]">Fine Diamond Collector & High Jewellery</option>
+                      <option value="Anniversary" className="dark:bg-[#211E1A] dark:text-[#F5F2EB]">Anniversary & Custom Remodeling</option>
+                      <option value="Daily Luxury" className="dark:bg-[#211E1A] dark:text-[#F5F2EB]">Daily Fine Jewellery & Gifts</option>
                     </select>
                   </div>
                 )}
@@ -585,25 +585,25 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                 {/* Checkboxes: Remember Me / Terms */}
                 <div className="pt-1">
                   {mode === 'login' ? (
-                    <label className="flex items-center gap-2.5 cursor-pointer text-xs text-[#57534E]">
+                    <label className="flex items-center gap-2.5 cursor-pointer text-xs text-[#57534E] dark:text-[#D4CEC4]">
                       <input
                         type="checkbox"
                         checked={rememberMe}
                         onChange={(e) => setRememberMe(e.target.checked)}
-                        className="w-4 h-4 accent-[#B28359] rounded border-[#CBD5E1]"
+                        className="w-4 h-4 accent-[#B28359] dark:accent-[#D4AF37] rounded border-[#CBD5E1] dark:border-[#3D352E]"
                       />
                       <span>Keep me signed in on this secure device</span>
                     </label>
                   ) : (
-                    <label className="flex items-start gap-2.5 cursor-pointer text-xs text-[#57534E]">
+                    <label className="flex items-start gap-2.5 cursor-pointer text-xs text-[#57534E] dark:text-[#D4CEC4]">
                       <input
                         type="checkbox"
                         checked={agreeTerms}
                         onChange={(e) => setAgreeTerms(e.target.checked)}
-                        className="w-4 h-4 accent-[#B28359] rounded border-[#CBD5E1] mt-0.5 shrink-0"
+                        className="w-4 h-4 accent-[#B28359] dark:accent-[#D4AF37] rounded border-[#CBD5E1] dark:border-[#3D352E] mt-0.5 shrink-0"
                       />
                       <span>
-                        I accept the Ever After Diamonds <a href="#" className="text-[#B28359] underline">Client Terms</a> and <a href="#" className="text-[#B28359] underline">Privacy Vault Policy</a>.
+                        I accept the Ever After Diamonds <a href="#" className="text-[#B28359] dark:text-[#D4AF37] underline">Client Terms</a> and <a href="#" className="text-[#B28359] dark:text-[#D4AF37] underline">Privacy Vault Policy</a>.
                       </span>
                     </label>
                   )}
@@ -613,10 +613,10 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-3.5 px-6 rounded-xl bg-[#B28359] hover:bg-[#9E7249] text-white font-bold text-xs sm:text-sm uppercase tracking-[0.14em] transition-all shadow-md hover:shadow-lg active:scale-[0.99] flex items-center justify-center gap-2 mt-4"
+                  className="w-full py-3.5 px-6 rounded-xl bg-[#B28359] dark:bg-[#D4AF37] hover:bg-[#9E7249] dark:hover:bg-[#C59F2D] text-white dark:text-[#141210] font-bold text-xs sm:text-sm uppercase tracking-[0.14em] transition-all shadow-md hover:shadow-lg active:scale-[0.99] flex items-center justify-center gap-2 mt-4"
                 >
                   {isLoading ? (
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <div className="w-5 h-5 border-2 border-white dark:border-[#141210] border-t-transparent rounded-full animate-spin" />
                   ) : (
                     <>
                       <span>{mode === 'login' ? 'Access Atelier Portal' : 'Create VIP Account'}</span>
@@ -631,7 +631,7 @@ export const AuthCard: React.FC<AuthCardProps> = ({
         </div>
 
         {/* Footer Note */}
-        <div className="mt-8 pt-4 border-t border-[#E8E2D7] text-center text-xs text-[#78716C]">
+        <div className="mt-8 pt-4 border-t border-[#E8E2D7] dark:border-[#332E2A] text-center text-xs text-[#78716C] dark:text-[#A3998E]">
           {!isForgotView && (
             <p>
               {mode === 'login' ? (
@@ -640,7 +640,7 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                   <button
                     type="button"
                     onClick={() => handleModeSwitch('signup')}
-                    className="font-bold text-[#B28359] hover:underline"
+                    className="font-bold text-[#B28359] dark:text-[#D4AF37] hover:underline"
                   >
                     Register here
                   </button>
@@ -651,7 +651,7 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                   <button
                     type="button"
                     onClick={() => handleModeSwitch('login')}
-                    className="font-bold text-[#B28359] hover:underline"
+                    className="font-bold text-[#B28359] dark:text-[#D4AF37] hover:underline"
                   >
                     Sign in to account
                   </button>
