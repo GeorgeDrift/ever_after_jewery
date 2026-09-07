@@ -33,10 +33,22 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
+      "page": "/account",
+      "regex": "^/account(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/account(?:/)?$"
+    },
+    {
       "page": "/admin",
       "regex": "^/admin(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/admin(?:/)?$"
+    },
+    {
+      "page": "/customer",
+      "regex": "^/customer(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/customer(?:/)?$"
     },
     {
       "page": "/login",

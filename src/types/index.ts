@@ -81,3 +81,35 @@ export interface ConsultationRequest {
   budgetRange: string;
   notes?: string;
 }
+
+export interface CustomerProfile {
+  title: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  anniversaryDate?: string;
+  preferredRingSize?: string;
+  vipTier: string;
+}
+
+export interface CustomerAddress {
+  id: string;
+  label: string; // e.g. 'Home - Kensington', 'Mayfair Office'
+  recipientName: string;
+  addressLine1: string;
+  addressLine2?: string;
+  city: string;
+  postcode: string;
+  country: string;
+  isDefault: boolean;
+}
+
+export interface CustomerPaymentCard {
+  id: string;
+  cardholderName: string;
+  cardNumberMasked: string; // e.g. '•••• •••• •••• 4242'
+  expiryDate: string; // e.g. '08/29'
+  brand: 'Visa' | 'Mastercard' | 'Amex';
+  isDefault: boolean;
+}

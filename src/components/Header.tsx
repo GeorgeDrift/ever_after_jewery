@@ -206,31 +206,17 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="hidden xl:inline text-xs uppercase tracking-wider font-semibold">4Cs</span>
           </button>
 
-          {/* Sign In Account Button */}
-          {onOpenAuth ? (
-            <button
-              id="auth-modal-btn"
-              onClick={onOpenAuth}
-              className="p-2 text-[#57534E] dark:text-[#D4CEC4] hover:text-[#B28359] dark:hover:text-[#D4AF37] transition-colors rounded-full hover:bg-[#F5F2EB] dark:hover:bg-[#24201D] flex items-center gap-1.5"
-              title="Sign In / Private Client Account"
-            >
-              <User className="w-4 h-4 text-[#B28359] dark:text-[#D4AF37]" />
-              <span className="hidden md:inline text-xs font-semibold uppercase tracking-wider text-[#1C1917] dark:text-[#F5F2EB]">
-                Sign In
-              </span>
-            </button>
-          ) : (
-            <Link
-              href="/login"
-              className="p-2 text-[#57534E] dark:text-[#D4CEC4] hover:text-[#B28359] dark:hover:text-[#D4AF37] transition-colors rounded-full hover:bg-[#F5F2EB] dark:hover:bg-[#24201D] flex items-center gap-1.5"
-              title="Sign In / Private Client Account"
-            >
-              <User className="w-4 h-4 text-[#B28359] dark:text-[#D4AF37]" />
-              <span className="hidden md:inline text-xs font-semibold uppercase tracking-wider text-[#1C1917] dark:text-[#F5F2EB]">
-                Sign In
-              </span>
-            </Link>
-          )}
+          {/* My Account & Profile Link */}
+          <Link
+            href="/account"
+            className="p-2 text-[#57534E] dark:text-[#D4CEC4] hover:text-[#B28359] dark:hover:text-[#D4AF37] transition-colors rounded-full hover:bg-[#F5F2EB] dark:hover:bg-[#24201D] flex items-center gap-1.5"
+            title="Customer Account & Profile"
+          >
+            <User className="w-4 h-4 text-[#B28359] dark:text-[#D4AF37]" />
+            <span className="hidden md:inline text-xs font-semibold uppercase tracking-wider text-[#1C1917] dark:text-[#F5F2EB]">
+              Account
+            </span>
+          </Link>
 
           {/* Book Consultation Button */}
           <button
@@ -337,27 +323,14 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           <div className="pt-3 border-t border-[#ECE6DB] dark:border-[#332E2A] space-y-2">
-            {onOpenAuth ? (
-              <button
-                onClick={() => {
-                  onOpenAuth();
-                  setMobileMenuOpen(false);
-                }}
-                className="w-full text-left px-3 py-2 text-xs uppercase tracking-wider text-[#1C1917] dark:text-[#F5F2EB] font-semibold hover:text-[#B28359] dark:hover:text-[#D4AF37] flex items-center gap-2 border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl bg-[#FAF9F5] dark:bg-[#24201D]"
-              >
-                <User className="w-4 h-4 text-[#B28359] dark:text-[#D4AF37]" />
-                <span>Sign In / Create Account</span>
-              </button>
-            ) : (
-              <Link
-                href="/login"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full text-left px-3 py-2 text-xs uppercase tracking-wider text-[#1C1917] dark:text-[#F5F2EB] font-semibold hover:text-[#B28359] dark:hover:text-[#D4AF37] flex items-center gap-2 border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl bg-[#FAF9F5] dark:bg-[#24201D]"
-              >
-                <User className="w-4 h-4 text-[#B28359] dark:text-[#D4AF37]" />
-                <span>Sign In / Create Account</span>
-              </Link>
-            )}
+            <Link
+              href="/account"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-left px-3 py-2 text-xs uppercase tracking-wider text-[#1C1917] dark:text-[#F5F2EB] font-semibold hover:text-[#B28359] dark:hover:text-[#D4AF37] flex items-center gap-2 border border-[#E5DFD5] dark:border-[#3D352E] rounded-xl bg-[#FAF9F5] dark:bg-[#24201D]"
+            >
+              <User className="w-4 h-4 text-[#B28359] dark:text-[#D4AF37]" />
+              <span>My Account & Profile</span>
+            </Link>
 
             <button
               onClick={() => {

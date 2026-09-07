@@ -108,7 +108,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "D:\\Users\\Drastic\\EverAfterJewerly",
+    "outputFileTracingRoot": "D:\\Users\\Drastic\\EverAfterJewerly\\ever_after_jewery",
     "experimental": {
       "useSkewCookie": false,
       "cacheLife": {
@@ -297,11 +297,11 @@
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
     "turbopack": {
-      "root": "D:\\Users\\Drastic\\EverAfterJewerly"
+      "root": "D:\\Users\\Drastic\\EverAfterJewerly\\ever_after_jewery"
     }
   },
   "appDir": "D:\\Users\\Drastic\\EverAfterJewerly\\ever_after_jewery",
-  "relativeAppDir": "ever_after_jewery",
+  "relativeAppDir": "",
   "files": [
     ".next\\routes-manifest.json",
     ".next\\server\\pages-manifest.json",

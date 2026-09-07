@@ -408,17 +408,17 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                 ) : (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-xs uppercase tracking-wider font-semibold text-[#57534E] mb-1.5">
+                      <label className="block text-xs uppercase tracking-wider font-semibold text-[#57534E] dark:text-[#D4CEC4] mb-1.5">
                         Client Registered Email
                       </label>
-                      <div className="relative">
-                        <Mail className="w-4 h-4 text-[#A8A29E] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                      <div className="relative flex items-center">
+                        <Mail className="w-4 h-4 text-[#8C5B32] dark:text-[#D4AF37] absolute left-3.5 top-1/2 -translate-y-1/2 z-10 pointer-events-none" />
                         <input
                           type="email"
                           placeholder="client@everafterdiamonds.co.uk"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="auth-input pl-10"
+                          className="auth-input auth-input-icon-left"
                         />
                       </div>
                     </div>
@@ -426,7 +426,7 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full py-3 rounded-xl bg-[#B28359] hover:bg-[#9E7249] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2"
+                      className="w-full py-3 rounded-xl bg-[#B28359] dark:bg-[#D4AF37] hover:bg-[#9E7249] dark:hover:bg-[#C59F2D] text-white dark:text-[#141210] text-xs font-bold uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2"
                     >
                       {isLoading ? (
                         <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -441,7 +441,7 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                     <button
                       type="button"
                       onClick={() => setIsForgotView(false)}
-                      className="w-full text-center text-xs text-[#78716C] hover:text-[#1C1917] font-medium pt-1"
+                      className="w-full text-center text-xs text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-white font-medium pt-1"
                     >
                       Cancel and Return to Sign In
                     </button>
@@ -453,17 +453,17 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                 {/* SIGNUP: Full Name Field */}
                 {mode === 'signup' && (
                   <div>
-                    <label className="block text-xs uppercase tracking-wider font-semibold text-[#57534E] mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider font-semibold text-[#57534E] dark:text-[#D4CEC4] mb-1.5">
                       Full Name <span className="text-rose-500">*</span>
                     </label>
-                    <div className="relative">
-                      <User className="w-4 h-4 text-[#A8A29E] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <div className="relative flex items-center">
+                      <User className="w-4 h-4 text-[#8C5B32] dark:text-[#D4AF37] absolute left-3.5 top-1/2 -translate-y-1/2 z-10 pointer-events-none" />
                       <input
                         type="text"
                         placeholder="Lady Victoria Cavendish"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
-                        className="auth-input pl-10"
+                        className="auth-input auth-input-icon-left"
                       />
                     </div>
                   </div>
@@ -471,17 +471,17 @@ export const AuthCard: React.FC<AuthCardProps> = ({
 
                 {/* Email Address Field */}
                 <div>
-                  <label className="block text-xs uppercase tracking-wider font-semibold text-[#57534E] mb-1.5">
+                  <label className="block text-xs uppercase tracking-wider font-semibold text-[#57534E] dark:text-[#D4CEC4] mb-1.5">
                     Email Address <span className="text-rose-500">*</span>
                   </label>
-                  <div className="relative">
-                    <Mail className="w-4 h-4 text-[#A8A29E] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <div className="relative flex items-center">
+                    <Mail className="w-4 h-4 text-[#8C5B32] dark:text-[#D4AF37] absolute left-3.5 top-1/2 -translate-y-1/2 z-10 pointer-events-none" />
                     <input
                       type="email"
                       placeholder="name@example.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="auth-input pl-10"
+                      className="auth-input auth-input-icon-left"
                     />
                   </div>
                 </div>
@@ -489,32 +489,32 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                 {/* Password Field */}
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <label className="block text-xs uppercase tracking-wider font-semibold text-[#57534E]">
+                    <label className="block text-xs uppercase tracking-wider font-semibold text-[#57534E] dark:text-[#D4CEC4]">
                       Password <span className="text-rose-500">*</span>
                     </label>
                     {mode === 'login' && (
                       <button
                         type="button"
                         onClick={() => setIsForgotView(true)}
-                        className="text-[11px] text-[#B28359] hover:underline font-medium"
+                        className="text-[11px] text-[#B28359] dark:text-[#D4AF37] hover:underline font-medium"
                       >
                         Forgot password?
                       </button>
                     )}
                   </div>
-                  <div className="relative">
-                    <Lock className="w-4 h-4 text-[#A8A29E] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <div className="relative flex items-center">
+                    <Lock className="w-4 h-4 text-[#8C5B32] dark:text-[#D4AF37] absolute left-3.5 top-1/2 -translate-y-1/2 z-10 pointer-events-none" />
                     <input
                       type={showPassword ? 'text' : 'password'}
                       placeholder="••••••••••••"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="auth-input pl-10 pr-10"
+                      className="auth-input auth-input-icon-left auth-input-icon-right"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#A8A29E] hover:text-[#1C1917] p-1"
+                      className="absolute right-3.5 top-1/2 -translate-y-1/2 z-10 text-[#8C5B32] dark:text-[#D4AF37] hover:text-[#1C1917] dark:hover:text-white p-1"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -524,10 +524,10 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                   {mode === 'signup' && password.length > 0 && (
                     <div className="mt-2.5 space-y-1.5 animate-in fade-in">
                       <div className="flex items-center justify-between text-[11px]">
-                        <span className="text-[#78716C]">Password Strength:</span>
-                        <span className="font-semibold text-[#1C1917]">{pwdStrength.label}</span>
+                        <span className="text-[#78716C] dark:text-[#A3998E]">Password Strength:</span>
+                        <span className="font-semibold text-[#1C1917] dark:text-[#F5F2EB]">{pwdStrength.label}</span>
                       </div>
-                      <div className="h-1.5 w-full bg-[#E5DFD5] rounded-full overflow-hidden">
+                      <div className="h-1.5 w-full bg-[#E5DFD5] dark:bg-[#3D352E] rounded-full overflow-hidden">
                         <div 
                           className={`h-full transition-all duration-300 ${pwdStrength.color}`}
                           style={{ width: `${pwdStrength.score}%` }}
@@ -540,22 +540,22 @@ export const AuthCard: React.FC<AuthCardProps> = ({
                 {/* SIGNUP: Confirm Password Field */}
                 {mode === 'signup' && (
                   <div>
-                    <label className="block text-xs uppercase tracking-wider font-semibold text-[#57534E] mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider font-semibold text-[#57534E] dark:text-[#D4CEC4] mb-1.5">
                       Confirm Password <span className="text-rose-500">*</span>
                     </label>
-                    <div className="relative">
-                      <Lock className="w-4 h-4 text-[#A8A29E] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <div className="relative flex items-center">
+                      <Lock className="w-4 h-4 text-[#8C5B32] dark:text-[#D4AF37] absolute left-3.5 top-1/2 -translate-y-1/2 z-10 pointer-events-none" />
                       <input
                         type={showConfirmPassword ? 'text' : 'password'}
                         placeholder="••••••••••••"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="auth-input pl-10 pr-10"
+                        className="auth-input auth-input-icon-left auth-input-icon-right"
                       />
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-[#A8A29E] hover:text-[#1C1917] p-1"
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 z-10 text-[#8C5B32] dark:text-[#D4AF37] hover:text-[#1C1917] dark:hover:text-white p-1"
                       >
                         {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>

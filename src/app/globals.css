@@ -216,10 +216,47 @@ h1, h2, h3, .font-serif-luxury {
   border: 1px solid #E5DFD5;
   color: #1C1917;
   border-radius: 0.75rem;
-  padding: 0.875rem 1rem;
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   font-size: 0.9375rem;
   transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
   outline: none;
+}
+
+html.dark .auth-input {
+  background-color: #211E1A;
+  border-color: #3A332B;
+  color: #F5F2EB;
+}
+
+.auth-input.has-icon-left,
+.auth-input-icon-left {
+  padding-left: 2.875rem !important;
+}
+
+.auth-input.has-icon-right,
+.auth-input-icon-right {
+  padding-right: 2.875rem !important;
+}
+
+/* Chrome/Safari Autofill Custom Overrides */
+.auth-input:-webkit-autofill,
+.auth-input:-webkit-autofill:hover,
+.auth-input:-webkit-autofill:focus,
+.auth-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #FAF9F5 inset !important;
+  -webkit-text-fill-color: #1C1917 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+html.dark .auth-input:-webkit-autofill,
+html.dark .auth-input:-webkit-autofill:hover,
+html.dark .auth-input:-webkit-autofill:focus,
+html.dark .auth-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #211E1A inset !important;
+  -webkit-text-fill-color: #F5F2EB !important;
 }
 
 .auth-input:hover {
@@ -227,10 +264,21 @@ h1, h2, h3, .font-serif-luxury {
   background-color: #FFFFFF;
 }
 
+html.dark .auth-input:hover {
+  border-color: #D4AF37;
+  background-color: #2A2520;
+}
+
 .auth-input:focus {
   background-color: #FFFFFF;
   border-color: #B28359;
   box-shadow: 0 0 0 3px rgba(178, 131, 89, 0.15), 0 2px 10px rgba(178, 131, 89, 0.08);
+}
+
+html.dark .auth-input:focus {
+  background-color: #2A2520;
+  border-color: #D4AF37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2), 0 2px 10px rgba(212, 175, 55, 0.1);
 }
 
 .auth-input-error {
