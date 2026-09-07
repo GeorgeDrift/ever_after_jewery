@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation';
+import CustomerAccountPage from '../account/page';
 
-export default function CustomerPage() {
-  redirect('/account');
-}
+export default CustomerAccountPage;

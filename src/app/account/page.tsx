@@ -272,7 +272,7 @@ export default function CustomerAccountPage() {
       )}
 
       {/* TOP LUXURY NAVIGATION HEADER */}
-      <header className="sticky top-0 z-40 bg-[#1C1917] text-white border-b border-[#332E2A] shadow-md px-4 py-3">
+      <header className="sticky top-0 z-40 bg-[#FAF9F5]/95 dark:bg-[#1C1917]/95 backdrop-blur-md text-[#1C1917] dark:text-white border-b border-[#EAE4DA] dark:border-[#332E2A] shadow-xs px-4 py-3 transition-colors">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           
           {/* Logo */}
@@ -281,19 +281,19 @@ export default function CustomerAccountPage() {
               <img 
                 src={profileBadgeImgSrc} 
                 alt="Ever After Emblem" 
-                className="w-full h-full object-cover rounded-full bg-white"
+                className="w-full h-full object-cover rounded-full bg-white dark:bg-[#1C1917]"
               />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-brand-display text-lg font-bold tracking-[0.16em] uppercase text-[#F5F2EB] group-hover:text-[#D4AF37] transition-colors">
+                <span className="font-brand-display text-lg font-bold tracking-[0.16em] uppercase text-[#1C1917] dark:text-[#F5F2EB] group-hover:text-[#B28359] dark:group-hover:text-[#D4AF37] transition-colors">
                   EVER AFTER
                 </span>
-                <span className="px-2 py-0.5 rounded-full bg-[#B28359]/20 border border-[#B28359]/50 text-[#D4AF37] text-[10px] font-bold uppercase tracking-wider">
+                <span className="px-2 py-0.5 rounded-full bg-[#FDF8F3] dark:bg-[#B28359]/20 border border-[#E5D5C3] dark:border-[#B28359]/50 text-[#8C5B32] dark:text-[#D4AF37] text-[10px] font-bold uppercase tracking-wider">
                   Client Portal
                 </span>
               </div>
-              <span className="text-[10px] tracking-[0.24em] text-[#A8A29E] uppercase block font-semibold">
+              <span className="text-[10px] tracking-[0.24em] text-[#78716C] dark:text-[#A8A29E] uppercase block font-semibold">
                 PRIVATE CLIENT ACCOUNT
               </span>
             </div>
@@ -305,15 +305,15 @@ export default function CustomerAccountPage() {
 
             <Link
               href="/admin"
-              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-[#EADDCB] font-semibold uppercase tracking-wider transition-all"
+              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#F5F2EB] dark:bg-white/10 hover:bg-[#EAE4DA] dark:hover:bg-white/20 border border-[#E0D8CB] dark:border-white/20 text-[#57534E] dark:text-[#EADDCB] font-semibold uppercase tracking-wider transition-all"
             >
-              <Building className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <Building className="w-3.5 h-3.5 text-[#8C5B32] dark:text-[#D4AF37]" />
               <span>Admin Portal</span>
             </Link>
 
             <Link
               href="/"
-              className="px-4 py-2 rounded-full bg-[#B28359] hover:bg-[#9E7249] text-white font-semibold uppercase tracking-wider transition-all shadow-sm flex items-center gap-1.5"
+              className="px-4 py-2 rounded-full bg-[#B28359] dark:bg-[#D4AF37] hover:bg-[#9E7249] dark:hover:bg-[#C59F2D] text-white dark:text-[#141210] font-semibold uppercase tracking-wider transition-all shadow-xs flex items-center gap-1.5"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Storefront</span>
@@ -324,32 +324,32 @@ export default function CustomerAccountPage() {
       </header>
 
       {/* CLIENT BANNER HERO */}
-      <div className="bg-gradient-to-r from-[#1C1917] via-[#2A241F] to-[#1C1917] text-white border-b border-[#3D352E] py-8 px-4 sm:px-6">
+      <div className="bg-gradient-to-r from-[#F5EFE6] via-[#FAF6F0] to-[#F5EFE6] dark:from-[#1C1917] dark:via-[#2A241F] dark:to-[#1C1917] text-[#1C1917] dark:text-white border-b border-[#EAE3D5] dark:border-[#3D352E] py-8 px-4 sm:px-6 transition-colors">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 rounded-full bg-[#B28359]/30 border border-[#B28359] text-[#D4AF37] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
-                <Gem className="w-3.5 h-3.5" />
+              <span className="px-3 py-1 rounded-full bg-[#FDF8F3] dark:bg-[#B28359]/30 border border-[#E5D5C3] dark:border-[#B28359] text-[#8C5B32] dark:text-[#D4AF37] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                <Gem className="w-3.5 h-3.5 text-[#8C5B32] dark:text-[#D4AF37]" />
                 <span>{profile.vipTier}</span>
               </span>
-              <span className="text-xs text-[#A8A29E]">• Member since 2024</span>
+              <span className="text-xs text-[#78716C] dark:text-[#A8A29E]">• Member since 2024</span>
             </div>
-            <h1 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-[#F5F2EB]">
+            <h1 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-[#1C1917] dark:text-[#F5F2EB]">
               Welcome Back, {profile.title} {profile.firstName} {profile.lastName}
             </h1>
-            <p className="text-xs text-[#A8A29E] max-w-xl">
+            <p className="text-xs text-[#57534E] dark:text-[#A8A29E] max-w-xl">
               Manage your personal preferences, verified delivery addresses, encrypted payment methods, and bespoke commission status.
             </p>
           </div>
 
           <div className="flex items-center gap-3 shrink-0">
-            <div className="px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-center">
-              <span className="text-[10px] text-[#A8A29E] uppercase tracking-wider block">Ring Size</span>
-              <span className="font-bold text-sm text-[#D4AF37]">UK Size {profile.preferredRingSize}</span>
+            <div className="px-4 py-2.5 rounded-2xl bg-white/80 dark:bg-white/5 border border-[#E5DFD5] dark:border-white/10 text-center shadow-xs">
+              <span className="text-[10px] text-[#78716C] dark:text-[#A8A29E] uppercase tracking-wider block font-medium">Ring Size</span>
+              <span className="font-bold text-sm text-[#8C5B32] dark:text-[#D4AF37]">UK Size {profile.preferredRingSize}</span>
             </div>
-            <div className="px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-center">
-              <span className="text-[10px] text-[#A8A29E] uppercase tracking-wider block">Concierge Status</span>
-              <span className="font-bold text-sm text-emerald-400">Active VIP</span>
+            <div className="px-4 py-2.5 rounded-2xl bg-white/80 dark:bg-white/5 border border-[#E5DFD5] dark:border-white/10 text-center shadow-xs">
+              <span className="text-[10px] text-[#78716C] dark:text-[#A8A29E] uppercase tracking-wider block font-medium">Concierge Status</span>
+              <span className="font-bold text-sm text-emerald-700 dark:text-emerald-400">Active VIP</span>
             </div>
           </div>
         </div>
@@ -366,12 +366,12 @@ export default function CustomerAccountPage() {
                 onClick={() => setActiveTab('profile')}
                 className={`w-full px-4 py-3 rounded-2xl text-xs uppercase tracking-wider font-bold transition-all flex items-center justify-between ${
                   activeTab === 'profile'
-                    ? 'bg-[#1C1917] dark:bg-[#B28359] text-white shadow-xs'
+                    ? 'bg-[#B28359] dark:bg-[#D4AF37] text-white dark:text-[#141210] shadow-xs'
                     : 'text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB] hover:bg-[#FAF9F5] dark:hover:bg-[#211E1A]'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <User className="w-4 h-4 text-[#D4AF37]" />
+                  <User className={`w-4 h-4 ${activeTab === 'profile' ? 'text-white dark:text-[#141210]' : 'text-[#8C5B32] dark:text-[#D4AF37]'}`} />
                   <span>Personal Profile</span>
                 </div>
               </button>
@@ -380,12 +380,12 @@ export default function CustomerAccountPage() {
                 onClick={() => setActiveTab('addresses')}
                 className={`w-full px-4 py-3 rounded-2xl text-xs uppercase tracking-wider font-bold transition-all flex items-center justify-between ${
                   activeTab === 'addresses'
-                    ? 'bg-[#1C1917] dark:bg-[#B28359] text-white shadow-xs'
+                    ? 'bg-[#B28359] dark:bg-[#D4AF37] text-white dark:text-[#141210] shadow-xs'
                     : 'text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB] hover:bg-[#FAF9F5] dark:hover:bg-[#211E1A]'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <MapPin className="w-4 h-4 text-[#D4AF37]" />
+                  <MapPin className={`w-4 h-4 ${activeTab === 'addresses' ? 'text-white dark:text-[#141210]' : 'text-[#8C5B32] dark:text-[#D4AF37]'}`} />
                   <span>Delivery Addresses ({addresses.length})</span>
                 </div>
               </button>
@@ -394,12 +394,12 @@ export default function CustomerAccountPage() {
                 onClick={() => setActiveTab('cards')}
                 className={`w-full px-4 py-3 rounded-2xl text-xs uppercase tracking-wider font-bold transition-all flex items-center justify-between ${
                   activeTab === 'cards'
-                    ? 'bg-[#1C1917] dark:bg-[#B28359] text-white shadow-xs'
+                    ? 'bg-[#B28359] dark:bg-[#D4AF37] text-white dark:text-[#141210] shadow-xs'
                     : 'text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB] hover:bg-[#FAF9F5] dark:hover:bg-[#211E1A]'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <CreditCard className="w-4 h-4 text-[#D4AF37]" />
+                  <CreditCard className={`w-4 h-4 ${activeTab === 'cards' ? 'text-white dark:text-[#141210]' : 'text-[#8C5B32] dark:text-[#D4AF37]'}`} />
                   <span>Payment Cards ({cards.length})</span>
                 </div>
               </button>
@@ -408,12 +408,12 @@ export default function CustomerAccountPage() {
                 onClick={() => setActiveTab('orders')}
                 className={`w-full px-4 py-3 rounded-2xl text-xs uppercase tracking-wider font-bold transition-all flex items-center justify-between ${
                   activeTab === 'orders'
-                    ? 'bg-[#1C1917] dark:bg-[#B28359] text-white shadow-xs'
+                    ? 'bg-[#B28359] dark:bg-[#D4AF37] text-white dark:text-[#141210] shadow-xs'
                     : 'text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB] hover:bg-[#FAF9F5] dark:hover:bg-[#211E1A]'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <ShoppingBag className="w-4 h-4 text-[#D4AF37]" />
+                  <ShoppingBag className={`w-4 h-4 ${activeTab === 'orders' ? 'text-white dark:text-[#141210]' : 'text-[#8C5B32] dark:text-[#D4AF37]'}`} />
                   <span>Vault Orders ({mockOrders.length})</span>
                 </div>
               </button>
@@ -422,12 +422,12 @@ export default function CustomerAccountPage() {
                 onClick={() => setActiveTab('appointments')}
                 className={`w-full px-4 py-3 rounded-2xl text-xs uppercase tracking-wider font-bold transition-all flex items-center justify-between ${
                   activeTab === 'appointments'
-                    ? 'bg-[#1C1917] dark:bg-[#B28359] text-white shadow-xs'
+                    ? 'bg-[#B28359] dark:bg-[#D4AF37] text-white dark:text-[#141210] shadow-xs'
                     : 'text-[#78716C] dark:text-[#A3998E] hover:text-[#1C1917] dark:hover:text-[#F5F2EB] hover:bg-[#FAF9F5] dark:hover:bg-[#211E1A]'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Calendar className="w-4 h-4 text-[#D4AF37]" />
+                  <Calendar className={`w-4 h-4 ${activeTab === 'appointments' ? 'text-white dark:text-[#141210]' : 'text-[#8C5B32] dark:text-[#D4AF37]'}`} />
                   <span>Salon Appointments</span>
                 </div>
               </button>

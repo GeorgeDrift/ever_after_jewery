@@ -131,7 +131,7 @@ export default function AdminLandingPage() {
       )}
 
       {/* TOP EXECUTIVE NAVIGATION HEADER */}
-      <header className="sticky top-0 z-40 bg-[#1C1917] text-white border-b border-[#332E2A] shadow-md px-4 py-3">
+      <header className="sticky top-0 z-40 bg-[#FAF9F5]/95 dark:bg-[#1C1917]/95 backdrop-blur-md text-[#1C1917] dark:text-white border-b border-[#EAE4DA] dark:border-[#332E2A] shadow-xs px-4 py-3 transition-colors">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           
           {/* Brand Logo & Admin Badge */}
@@ -140,19 +140,19 @@ export default function AdminLandingPage() {
               <img 
                 src={profileBadgeImgSrc} 
                 alt="Ever After Emblem" 
-                className="w-full h-full object-cover rounded-full bg-white"
+                className="w-full h-full object-cover rounded-full bg-white dark:bg-[#1C1917]"
               />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-brand-display text-lg font-bold tracking-[0.16em] uppercase text-[#F5F2EB]">
+                <span className="font-brand-display text-lg font-bold tracking-[0.16em] uppercase text-[#1C1917] dark:text-[#F5F2EB]">
                   EVER AFTER
                 </span>
-                <span className="px-2 py-0.5 rounded-full bg-[#B28359]/20 border border-[#B28359]/50 text-[#D4AF37] text-[10px] font-bold uppercase tracking-wider">
+                <span className="px-2 py-0.5 rounded-full bg-[#FDF8F3] dark:bg-[#B28359]/20 border border-[#E5D5C3] dark:border-[#B28359]/50 text-[#8C5B32] dark:text-[#D4AF37] text-[10px] font-bold uppercase tracking-wider">
                   Admin Portal
                 </span>
               </div>
-              <span className="text-[10px] tracking-[0.24em] text-[#A8A29E] uppercase block font-semibold">
+              <span className="text-[10px] tracking-[0.24em] text-[#78716C] dark:text-[#A8A29E] uppercase block font-semibold">
                 DIAMONDS • LONDON ATELIER
               </span>
             </div>
@@ -164,7 +164,7 @@ export default function AdminLandingPage() {
 
             <button
               onClick={() => setIsAddModalOpen(true)}
-              className="px-4 py-2 rounded-full bg-[#B28359] hover:bg-[#9E7249] text-white font-bold uppercase tracking-wider transition-all shadow-sm flex items-center gap-1.5 active:scale-95"
+              className="px-4 py-2 rounded-full bg-[#B28359] dark:bg-[#D4AF37] hover:bg-[#9E7249] dark:hover:bg-[#C59F2D] text-white dark:text-[#141210] font-bold uppercase tracking-wider transition-all shadow-xs flex items-center gap-1.5 active:scale-95"
             >
               <Plus className="w-4 h-4" />
               <span className="hidden sm:inline">Add New Creation</span>
@@ -172,15 +172,15 @@ export default function AdminLandingPage() {
 
             <button
               onClick={() => setIsShopifyModalOpen(true)}
-              className="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-[#EADDCB] font-semibold uppercase tracking-wider transition-all"
+              className="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#F5F2EB] dark:bg-white/10 hover:bg-[#EAE4DA] dark:hover:bg-white/20 border border-[#E0D8CB] dark:border-white/20 text-[#57534E] dark:text-[#EADDCB] font-semibold uppercase tracking-wider transition-all"
             >
-              <DownloadCloud className="w-4 h-4 text-[#D4AF37]" />
+              <DownloadCloud className="w-4 h-4 text-[#8C5B32] dark:text-[#D4AF37]" />
               <span>Shopify Sync</span>
             </button>
 
             <Link
               href="/"
-              className="px-3.5 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold uppercase tracking-wider transition-all flex items-center gap-1.5"
+              className="px-3.5 py-2 rounded-full bg-[#F5F2EB] dark:bg-white/10 hover:bg-[#EAE4DA] dark:hover:bg-white/20 border border-[#E0D8CB] dark:border-white/20 text-[#1C1917] dark:text-white font-semibold uppercase tracking-wider transition-all flex items-center gap-1.5"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Storefront</span>
